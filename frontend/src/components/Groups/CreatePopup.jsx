@@ -82,7 +82,7 @@ export const CreatePopup = ({ show, onClose,list }) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button className='m-auto popup-button fw-bold ' onClick={handleFormSubmit}>
+                <Button className='m-auto popup-button fw-bold shadow' onClick={handleFormSubmit}>
                 <IoCreate className='pb-1' size={25} />&ensp; Create
                 </Button>
             </Modal.Footer>

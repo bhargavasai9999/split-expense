@@ -82,7 +82,7 @@ export const EditPopup = ({ show, onClose,data,list }) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button className='m-auto popup-button fw-bold ' onClick={handleFormSubmit}>
+                <Button className='m-auto popup-button fw-bold shadow ' onClick={handleFormSubmit}>
                 <GrUpdate size={20} className='pb-1' /> &ensp;Update
                 </Button>
             </Modal.Footer>

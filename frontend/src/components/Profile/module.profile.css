@@ -1,0 +1,9 @@
+.button-save:hover{
+    background-color: rgb((29, 145, 11)0, 255, 128);
+}
+.button-cancel:hover{
+    background-color: red;
+}
+.profile-img-popup{
+    border-radius: 40px;
+}

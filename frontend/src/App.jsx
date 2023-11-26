@@ -6,6 +6,7 @@ import { FriendCard } from './components/Friends/FriendCard';
 import { ActivityItem } from './components/ActivityHistory/ActivityItem';
 import { GroupItem } from './components/Groups/GroupItem';
 import { GroupCard } from './components/Groups/GroupCard';
+import { ProfilePopup } from './components/Profile/ProfilePopup';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/login" exact element={<Home/>} />
         <Route path="/managefriends" element={<FriendCard/>} />
         <Route path="/history" element={<ActivityCard/>} />
-        <Route path="/card" element={<GroupCard/>} />
+        <Route path="/managegroups" element={<GroupCard/>} />
+        <Route path="/card" element={<ProfilePopup/>} />
 
       </Routes>
       </Router>
