@@ -24,10 +24,10 @@
 }
 
 .scrollable-checklist {
-    max-height: 200px; /* Adjust the height as needed */
+    max-height: 200px !important; 
     overflow-y: auto;
+    scroll-behavior: smooth;
+    cursor: pointer;
 }
 
-.checklist-container {
-    overflow-y: auto;
-}
+

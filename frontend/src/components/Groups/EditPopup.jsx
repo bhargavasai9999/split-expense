@@ -41,7 +41,7 @@ export const EditPopup = ({ show, onClose,data,list }) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <h6 className='text-center'>view and edit your details</h6>
+                    <h6 className='text-center'>view and edit your details*</h6>
                     <Form.Group controlId='groupName'>
                         <Form.Label className='popup-label'>Group Name</Form.Label>
                         <Form.Control
@@ -63,9 +63,9 @@ export const EditPopup = ({ show, onClose,data,list }) => {
                             className='shadow-sm w-100'
                         />
                     </Form.Group>
-                    <Form.Group controlId='selectFriends' className='scrollable-checklist'>
+                    <Form.Group controlId='selectFriends'>
                         <Form.Label className='popup-label pt-2'>Select Friends</Form.Label>
-                        <div className='checklist-container'>
+                        <div className='overflow-auto ' style={{height:"130px"}}>
                             {friendsList.map((friend, index) => (
                                 <Form.Check
                                     key={index}

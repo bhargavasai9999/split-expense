@@ -40,7 +40,7 @@ export const CreatePopup = ({ show, onClose,list }) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <h6 className='text-center'>Make your group to split bills*</h6>
+                    <h6 className='text-center'>Make group to split bills and expenses*</h6>
                     <Form.Group controlId='groupName'>
                         <Form.Label className='popup-label'>Group Name</Form.Label>
                         <Form.Control
@@ -62,9 +62,10 @@ export const CreatePopup = ({ show, onClose,list }) => {
                             className='shadow-sm w-100'
                         />
                     </Form.Group>
-                    <Form.Group controlId='selectFriends' className='scrollable-checklist'>
+                    <Form.Group controlId='selectFriends' >
                         <Form.Label className='popup-label pt-2'>Select Friends</Form.Label>
-                        <div className='checklist-container'>
+                        <div className='overflow-auto pointer' style={{height:"130px"}}>                        
+                            
                             {friendsList.map((friend, index) => (
                                 <Form.Check
                                     key={index}

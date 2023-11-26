@@ -10,7 +10,7 @@ export const GroupCard = () => {
     const [editModal, setEditModal] = useState(false);
     const [editedGroupIndex, setEditedGroupIndex] = useState(null);
     const [tempdata,settempdata]=useState(null);
-    const friendlist=["bhargav","parshuram","partheev"]
+    const friendlist=["bhargav","parshuram","partheev","parshuram","partheev","parshuram","partheev","parshuram","partheev"]
     const openModal = () => {
         setShowModal(true);
         setEditedGroupIndex(null)
