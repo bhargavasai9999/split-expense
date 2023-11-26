@@ -1,0 +1,33 @@
+.popup-friends{
+    scroll-behavior: smooth;
+    overflow-y:scroll;
+    height:200px;
+    flex-wrap: wrap;
+}
+.group-popup-button{
+    height: 40px;
+    width:60px;
+    text-align: center;
+    background-color:  rebeccapurple;
+}
+.popup-close::selection{
+    border: 0px;
+}
+.popup-input::selection{
+    border:1px;
+    text-align: center;
+
+}
+.popup-label{
+    font-weight: bold;
+    font-size:20px;
+}
+
+.scrollable-checklist {
+    max-height: 200px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.checklist-container {
+    overflow-y: auto;
+}
