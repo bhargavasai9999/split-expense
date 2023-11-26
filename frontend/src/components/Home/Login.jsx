@@ -27,7 +27,6 @@ const handleshowpassword=()=>{
   var x =document.getElementById('password');
   if(x.type==="password"){
     x.type="text"
-
   }
   else{
     x.type="password"
@@ -35,6 +34,7 @@ const handleshowpassword=()=>{
 }
 
   return (
+    //Login UI Code
     <div className=' p-3 text-center'>
       <div className='d-flex justify-content-center'>
         <form onSubmit={handlesubmit} autoComplete='on'>
@@ -51,6 +51,8 @@ const handleshowpassword=()=>{
       </div>
       <br/>
       <p className='text-center'>------ or -------</p>
+      
+      {/* Google authentication in login */}
       <a href="#" className="">
           <button className='btn text-center input-button bg-light shadow'><FcGoogle size={30}/> Login with Google</button>
         </a>

@@ -36,10 +36,11 @@ const handlesubmit=e=>{
 }
 
   return (
+    //Sign Up UI
     <div className=' p-2 text-center'>
       <div className='d-flex justify-content-center'>
         <form onSubmit={handlesubmit}>
-        <h2 className='text-center'>SignUp Here</h2>
+        <h2 className='text-center'>Signup Here</h2>
         <label className='login-label'> Email</label>
         <input type="email" placeholder='Email' className='p-2 text-start login-input shadow' name="email" value={signup.email} onChange={handleChange} required /><br/>
         <label className='login-label'> Name </label>
@@ -55,6 +56,7 @@ const handlesubmit=e=>{
 
       <p className='text-center'>------ or -------</p>
 
+        {/* google authentication in signup */}
       <a href="#" className="m-0">
           <button className='btn text-center input-button bg-light shadow'><FcGoogle size={30}/> Login with Google</button>
         </a>

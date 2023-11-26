@@ -1,0 +1,134 @@
+.friendcard-heading{
+    text-shadow: 0px 3px #e7e4e4;
+    cursor: pointer;
+}
+
+
+
+/* friends list styling */
+.table-headings{
+    background-color:rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: bold;
+    min-width:30vh;
+    width:100%;
+    min-height:40px;
+}
+.table-row{
+    background-color: rgb(226, 78, 78);
+    text-align: center;
+    min-width:30vh;
+    width:100%;
+    min-height:50px;
+    flex-wrap: wrap;
+}
+.table-head{
+    color:blueviolet;
+    text-align: center;
+    font-family:inherit;
+
+}
+td{
+    font-size: 16px;
+    text-align: center;
+    min-width:20vh;
+    width:100%;
+    min-height:50px;
+    padding: 10px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+}
+
+table{
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    
+}
+.rounded-row{
+    border-radius: 10px;
+}
+
+
+td:first-child td:first-child { 
+    border-top-left-radius: 12px; 
+}
+
+td:first-child td:last-child { 
+    border-top-right-radius: 12px; 
+}
+td:first-child td:first-child { 
+    border-bottom-left-radius: 12px; 
+}
+td:first-child td:last-child { 
+    border-bottom-right-radius: 12px; 
+}
+tr:last-child td:first-child {
+     border-bottom-left-radius: 12px;
+     }
+tr:last-child td:last-child { 
+    border-bottom-right-radius: 10px; 
+}
+
+.delete-button{
+    background-color: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
+    background: linear-gradient(#aa9ad5a4,rgba(223, 127, 128, 0.643));
+    font-weight: 500;
+}
+.delete-button:hover{
+    color:white;
+    background: linear-gradient(#5b30d3a4,rgba(178, 34, 36, 0.643));
+  } 
+
+
+ /* pop up css */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+
+  }
+
+  
+
+  .popup-input{
+    height: 40px;
+    width: 250px;
+    border-radius: 10px;
+    font-size: 18px;
+    text-align: center;
+  }
+  .popup-button{
+    background: linear-gradient(#aa9ad5a4,rgba(223, 127, 128, 0.643));
+    text-align: center;
+    font-size: 18px;
+
+  }
+  .popup-label{
+    font-weight: bold;
+    text-align: start;
+    font-size: 18px;
+    
+  }
+  .popup-button:hover{
+    background:  linear-gradient(#5b30d3a4,rgba(178, 34, 36, 0.643));
+    color:white;
+    cursor: pointer;
+
+  }

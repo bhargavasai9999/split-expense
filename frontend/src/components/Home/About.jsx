@@ -10,6 +10,7 @@ const About = () => {
 const [login,setlogin]=useState(true);
 
   return (
+    //Info Page in login
     <div className='home-main d-flex col-12'>
         <div className='about-main-container col-sm-12 col-md-6'>
 
@@ -26,6 +27,7 @@ const [login,setlogin]=useState(true);
            </div>
             </div>
             <div className='auth-container'>
+              {/* login and signup ui */}
              {login ? <Login/> : <SignUp/>}
                   
             </div>
