@@ -4,6 +4,7 @@ import { authorizeUser } from '../middlewares/authorizeUser.js'
 import { Group } from '../models/Group.js'
 import { Expense } from '../models/Expense.js'
 import { Owe } from '../models/Owe.js'
+import { splitExpensesToUsers } from '../utils/calculateExpenses.js'
 
 const router = express.Router()
 
@@ -15,14 +16,24 @@ router.post('/splitExpense', authorizeUser, async (req, res) => {
     amount: amount,
     userId: req.userId,
   })
-  friendIds.forEach(async (friendId) => {
-    const owe = await Owe.create({
-      amount: amount / friendIds.length,
-      userId: friendId,
-      toUserId: req.userId,
-      expenseId: expense.id,
+  const usersSplittedAmount = splitExpensesToUsers(
+    friendIds,
+    amount,
+    req.userId
+  )
+
+  const owe = await Owe.bulkCreate(
+    usersSplittedAmount.map((userSplitAmount) => {
+      const settle = req.userId === userSplitAmount.userId
+      return {
+        userId: userSplitAmount.userId,
+        toUserId: req.userId,
+        amount: userSplitAmount.amount,
+        settle,
+        expenseId: expense.id,
+      }
     })
-  })
+  )
 
   return res.status(200).send({ message: 'successfully splitted' })
 })

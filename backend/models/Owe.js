@@ -1,7 +1,7 @@
-import { sequelize } from '../config/db.js'
 import { DataTypes } from 'sequelize'
 import { User } from './User.js'
 import { Expense } from './Expense.js'
+import { sequelize } from '../config/db.js'
 
 export const Owe = sequelize.define(
   'Owe',
