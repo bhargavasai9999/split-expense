@@ -1,29 +1,49 @@
-import './App.css'
-import { BrowserRouter as Router,Route,Routes, Navigate } from 'react-router-dom';
-import {Home} from './components/Home/Home';
-import { ActivityCard } from './components/ActivityHistory/ActivityCard';
-import { FriendCard } from './components/Friends/FriendCard';
-import { ActivityItem } from './components/ActivityHistory/ActivityItem';
-import { GroupItem } from './components/Groups/GroupItem';
-import { GroupCard } from './components/Groups/GroupCard';
-import { ProfilePopup } from './components/Profile/ProfilePopup';
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import { FaList } from 'react-icons/fa';
+import { BrowserRouter as Router,Route,Routes, useLocation, useNavigate } from 'react-router-dom';
+import Sidebar from './components/Sidebar/Sidebar';
+import Content from './components/Content/Content';
 
-function App() {
+const App = () => {
+  const location=useLocation();
+  var path=location.pathname;
+   path=path.slice(1,)
+  const [showSidebar, setShowSidebar] = useState(window.innerWidth >= 768); // Show sidebar by default for widths >= 768px
+  const [selectedNavItem, setSelectedNavItem] = useState(path);
+
+  const handleHamburgerClick = () => {
+    setShowSidebar(!showSidebar);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setShowSidebar(window.innerWidth >= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+
+      
+    };
+  }, []);
+
   return (
-    <>
-    <Router>
-      <Routes>
-        <Route path="/*" element={<Navigate to="/card" />} />
-        <Route path="/login" exact element={<Home/>} />
-        <Route path="/managefriends" element={<FriendCard/>} />
-        <Route path="/history" element={<ActivityCard/>} />
-        <Route path="/managegroups" element={<GroupCard/>} />
-        <Route path="/card" element={<ProfilePopup/>} />
-
-      </Routes>
-      </Router>
-    </>
-  )
-}
+   
+      <div className="app">
+        <button className="hamburger" onClick={handleHamburgerClick}>
+          <FaList />
+        </button>
+        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} setSelectedNavItem={setSelectedNavItem} />
+        <Routes>
+              <Route path={selectedNavItem} element={<Content selectedNavItem={selectedNavItem} />}>    
+    
+        </Route>
+        </Routes>
+      </div>
+   
+  );
+};
 
 export default App;

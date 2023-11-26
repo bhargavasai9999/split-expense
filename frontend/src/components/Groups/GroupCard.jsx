@@ -34,7 +34,7 @@ export const GroupCard = () => {
 
     return (
         <div>
-            <h2 className='m-3 p-3 text-center'><MdGroups3 size={40} className='mb-2'/>&ensp;Groups</h2>
+            <h2 className='text-start px-4'><MdGroups3 size={40} className='mb-2'/>&ensp;Groups</h2>
             <div className='container-fluid d-flex flex-row flex-wrap justify-content-space-between col-12'>
                 <div
                     className='groupcard-create-div d-flex flex-column justify-content-center text-center shadow p-3'

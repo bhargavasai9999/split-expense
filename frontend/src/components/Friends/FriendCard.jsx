@@ -48,7 +48,7 @@ export const FriendCard = () => {
 
   return (
     <div className="text-center flex justify-content-center col-10">
-      <div className="d-flex justify-content-evenly mt-3 ">
+      <div className="d-flex justify-content-around mt-1 ">
         <h2 className="friendcard-heading fw-bold"><FaPeopleRobbery size={30} className='pb-1' />&ensp;Your Friends</h2>
         <button className="btn delete-button p-2 font-weight-bold shadow-sm" onClick={handleAddFriend}>
           <IoMdPersonAdd size={25} color="black" /> Add friend

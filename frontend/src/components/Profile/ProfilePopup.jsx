@@ -8,7 +8,7 @@ import { FaEye } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
 
-export const ProfilePopup = () => {
+export const ProfilePopup = ({show,close}) => {
   const [showpopup,setpopup]=useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -46,7 +46,7 @@ useEffect(()=>{
   };
 
   return (
-    <Modal show={showpopup} onClose={()=>setpopup(false)}>
+    <Modal show={show} onHide={close}>
 
 
 

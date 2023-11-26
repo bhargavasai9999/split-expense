@@ -1,0 +1,37 @@
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .app {
+    display: flex;
+  }
+  
+  .hamburger {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .hamburger {
+      display: block;
+    }
+  
+    .sidebar.show {
+      width: 100%;
+    }
+  
+    .nav-items span {
+      
+    }
+  
+    .nav-items li.show-text span {
+      display: inline;
+    }
+  }
+  

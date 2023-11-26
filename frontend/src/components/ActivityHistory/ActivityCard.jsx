@@ -8,8 +8,8 @@ export const ActivityCard = () => {
   
   return (
     <div className="container-fluid col-12 d-flex flex-column flex-wrap justify-content-between activitycard-body-div">
-      <div className="container d-flex justify-content-evenly"> 
-          <h2 className="d-inline mt-3 p-2 fw-bold"><FaHistory className="pb-1" />&ensp;Your Activity </h2>
+      <div className="container"> 
+          <h2 className="text-start mt-3 p-2 fw-bold"><FaHistory className="pb-1" />&ensp;Your Activity </h2>
       </div>
       <div className="d-flex flex flex-wrap col-12 ">     { 
         data.length>0 ? data.map((transaction)=>(
