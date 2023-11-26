@@ -9,6 +9,7 @@ import { Group } from './models/Group.js'
 import { AuthRouters } from './routes/auth.router.js'
 import { FriendRouters } from './routes/friend.router.js'
 import { GroupRouters } from './routes/group.router.js'
+import { ExpenseRouters } from './routes/expense.router.js'
 
 Group.belongsToMany(User, {
   as: 'user', // Alias for the association
@@ -49,6 +50,7 @@ app.get('/', (req, res) => {
 app.use(AuthRouters)
 app.use(FriendRouters)
 app.use(GroupRouters)
+app.use(ExpenseRouters)
 
 app.listen(5000, () => {
   console.log('server is running in the port 5000...')

@@ -9,7 +9,7 @@ router.post('/createGroup', authorizeUser, async (req, res) => {
   try {
     const { name, emails } = req.body
 
-    const group = await Group.create({ name: name })
+    const group = await Group.create({ name })
     const members = await User.findAll({ where: { email: emails } })
     const admin = await User.findByPk(req.userId)
     members.push(admin)
