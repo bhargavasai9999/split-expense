@@ -22,4 +22,4 @@ export const Expense = sequelize.define(
   }
 )
 
-Expense.belongsTo(User, { foreignKey: 'user_id' })
+Expense.belongsTo(User, { foreignKey: 'userId' })

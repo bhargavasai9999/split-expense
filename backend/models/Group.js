@@ -14,6 +14,3 @@ export const Group = sequelize.define(
     timestamps: true,
   }
 )
-
-User.belongsTo(Group)
-Group.hasMany(User)

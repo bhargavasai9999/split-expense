@@ -20,6 +20,6 @@ export const Owe = sequelize.define(
   }
 )
 
-Owe.belongsTo(User, { as: 'user', foreignKey: 'user_id' })
-Owe.belongsTo(User, { as: 'lended user', foreignKey: 'to_user_id' })
-Owe.belongsTo(Expense, { as: 'expense', foreignKey: 'expense_id' })
+Owe.belongsTo(User, { as: 'user', foreignKey: 'userId' })
+Owe.belongsTo(User, { as: 'lended user', foreignKey: 'toUserId' })
+Owe.belongsTo(Expense, { as: 'expense', foreignKey: 'expenseId' })

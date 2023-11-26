@@ -1,5 +1,6 @@
 import { sequelize } from '../config/db.js'
 import { DataTypes } from 'sequelize'
+import { Group } from './Group.js'
 
 export const User = sequelize.define(
   'User',
