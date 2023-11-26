@@ -54,7 +54,11 @@ router.get('/oweAndOwed', authorizeUser, async (req, res) => {
       { model: User, as: 'lended user', attributes: ['id', 'name'] },
     ],
   })
-  return res.status(200).send({ owe, owed })
+  let totalOwe = 0,
+    totalOwed = 0
+  owe.forEach((item) => (totalOwe += item.amount))
+  owed.forEach((item) => (totalOwed += item.amount))
+  return res.status(200).send({ owe, owed, totalOwe, totalOwed })
 })
 
 router.get('/settle', authorizeUser, async (req, res) => {
@@ -64,5 +68,7 @@ router.get('/settle', authorizeUser, async (req, res) => {
   )
   return res.status(200).send({ message: 'settled successfully' })
 })
+
+router.get('/totalAmountOweAndOwed', authorizeUser, async (req, res) => {})
 
 export const ExpenseRouters = router
