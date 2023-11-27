@@ -41,7 +41,7 @@ export const CreatePopup = ({ show, onClose,list,update}) => {
             return;
         }
         api.post("/group",{name:formData.groupName,userIds:formData.selectedFriends},config).then(res=>{
-            addToast(res.data.message, { appearance: 'success' });
+            addToast("group created successfully", { appearance: 'success' });
             update();
         }).catch(err=>{
             addToast("something went wrong", { appearance: 'danger' });
