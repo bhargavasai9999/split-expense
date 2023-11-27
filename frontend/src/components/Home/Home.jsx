@@ -1,11 +1,8 @@
 import About from "./About"
-
-export const Home = () => {
+const Home = () => {
   return (
-
-
     <About/>
-
-    
   )
 }
+
+export default Home;
