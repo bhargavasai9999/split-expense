@@ -1,34 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoMdPersonAdd } from 'react-icons/io';
 import { RxCross2 } from 'react-icons/rx';
 import { CgProfile } from 'react-icons/cg';
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { FaPeopleRobbery } from "react-icons/fa6";
-import "./Friends.css";
-
+import api from '../../apis/axiosConfig';
+import {  useToasts } from 'react-toast-notifications';
 import 'bootstrap/dist/css/bootstrap.css';
 import './module.friendcard.css';
 
 export const FriendCard = () => {
-  const [friends, setFriends] = useState([
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-    },
-    {
-      id: 2,
-      name: 'Johnfge Doe',
-      email: 'john.doe@example.com',
-    },
-  ]);
-
+  const { addToast } = useToasts();
+  const [friends, setFriends] = useState([]);
   const [showAddFriendPopup, setShowAddFriendPopup] = useState(false);
   const [alert, setalert] = useState(false);
   const [newFriendEmail, setNewFriendEmail] = useState('');
 
   const handleDelete = (id) => {
-    setFriends((prevFriends) => prevFriends.filter((friend) => friend.id !== id));
+    api.post("/deleteFriend",{id:id},config).then(res=>{
+      addToast(res.data.message, { appearance: 'success' });
+
+    })
+    
+    .catch((err)=>{
+      addToast("something went wrong", { appearance: 'error' });
+    })
+    setFriends((prevFriends) => prevFriends.filter((friend) => friend.friendId !== id));
+
+
   };
 
   const handleAddFriend = () => {
@@ -39,13 +38,32 @@ export const FriendCard = () => {
     setShowAddFriendPopup(false);
     setNewFriendEmail('');
   };
-
+  const token=localStorage.getItem('jwtToken');
+  const config = {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
   const handleSaveFriend = () => {
+    api.post('/addfriend',{email:newFriendEmail},config).then(res=>{
+      addToast(res.data.message, { appearance: 'success' });
+    }
+    ).catch((err) => {
+      addToast("email not found", { appearance: 'error' });
+    });
     setalert(true);
     setShowAddFriendPopup(false);
     setNewFriendEmail('');
   };
+useEffect(()=>{
+  api.get("/friends",config).then(res=>{
+    setFriends(res.data)
+    console.log(friends)
 
+  }).catch((err)=>{
+    addToast(err.res.data.message || "something went wrong",{appearance:"error"})
+  })
+},[showAddFriendPopup])
   return (
     <div className=" cont text-center flex justify-content-center col-10">
       {/* <div className="d-flex justify-content-around mt-1 ">
@@ -72,14 +90,14 @@ export const FriendCard = () => {
           <tbody>
             {friends.length > 0 ? (
               friends.map((friend) => (
-                <tr key={friend.id} className="shadow rounded-row">
+                <tr key={friend.friendId} className="shadow rounded-row">
                   <td className='pl-8 text-center'>
                     <CgProfile size={30} color="red" />
                   </td>
                   <td className="text-danger text-center">{friend.name}</td>
                   <td>{friend.email}</td>
                   <td>
-                    <button className="delete-button" onClick={() => handleDelete(friend.id)}>
+                    <button className="delete-button" onClick={() => handleDelete(friend.friendId)}>
                       <RxCross2 />
                     </button>
                   </td>

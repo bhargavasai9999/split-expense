@@ -1,8 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './module.groups.css';
 
-export const GroupItem = () => {
-const name="ahargava"
+export const GroupItem = ({name}) => {
   return (
     
         <div className='groupitem-main-div d-flex flex-column justify-content-center text-center shadow p-3'>
@@ -33,8 +32,8 @@ const name="ahargava"
             {name[0].toLowerCase() =="y" && <img src="src/static/A (25).png" className='group-item-image m-auto mt-0' />}
             {name[0].toLowerCase() =="z" && <img src="src/static/A (26).png" className='group-item-image m-auto mt-0' />}
         
-            <h4 className='groupitem-title mt-0'> Goa Trip</h4>
-            <h6 className='groupitem-description'>Trip expenses</h6>
+            <h4 className='groupitem-title mt-0'> {name}</h4>
+            <h6 className='groupitem-description'>view </h6>
         </div>
    
   )
