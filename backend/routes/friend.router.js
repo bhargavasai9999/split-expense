@@ -12,7 +12,7 @@ router.post('/addFriend', authorizeUser, async (req, res) => {
       return res.status(400).send({ message: 'Please enter email ID' })
     const user = await User.findByPk(req.userId)
     const friend = await User.findOne({ where: { email: email } })
-
+    
     if (!friend) {
       return res.status(400).send({ message: 'friend email not found' })
     }
@@ -31,6 +31,7 @@ router.get('/friends', authorizeUser, async (req, res) => {
     const friends = await user.getFriends({
       attributes: ['name', 'email'],
     })
+    console.log(friends)
     res.status(200).send(
       friends.map((friend) => {
         return {

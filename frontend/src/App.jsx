@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { FaList } from 'react-icons/fa';
-import { BrowserRouter as Router,Route,Routes, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
 import Content from './components/Content/Content';
+import { Login } from './components/Home/Login';
+import About from './components/Home/About';
+import Home from "./components/Home/Home";
 
 const App = () => {
   const [isAuthenticated, setAuthentication]  = useState(localStorage.getItem('jwtToken'));
@@ -40,9 +43,9 @@ const App = () => {
         </button>
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} setSelectedNavItem={setSelectedNavItem} />
         <Routes>
-              <Route path={selectedNavItem} element={<Content selectedNavItem={selectedNavItem} />}>    
-    
-        </Route>
+          <Route path={selectedNavItem} element={<Content selectedNavItem={selectedNavItem} />}>
+
+          </Route>
         </Routes>
       </div>
     ) : (
