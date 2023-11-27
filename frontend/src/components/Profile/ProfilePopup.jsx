@@ -11,10 +11,15 @@ import { GrUpdate } from "react-icons/gr";
 export const ProfilePopup = ({show,close}) => {
   const [showpopup,setpopup]=useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const userProfile={
+    name:"bhaargava sai",
+    email:"sai@h.com",
+    password:"bhargava"
+  }
   const [formData, setFormData] = useState({
-    name: "userProfile.name",
-    email: "userProfile.email",
-    password: "userProfile.password",
+    name: userProfile.name,
+    email: userProfile.email,
+    password: userProfile.password,
   });
 useEffect(()=>{
   setpopup(true);
@@ -118,12 +123,12 @@ useEffect(()=>{
           </Button>
         )}
         {isEditing && (
-          <Button className='popup-button shadow button-cancel' onClick={handleCancelClick}>
+          <Button className='shadow button-cancel' onClick={handleCancelClick}>
             <MdOutlineCancel size={25} />&ensp;Cancel
           </Button>
         )}
         {isEditing && (
-            <Button  className="mx-4 shadow popup-button button-save" onClick={handleSaveClick}>
+            <Button  className="mx-4 shadow  button-save" onClick={handleSaveClick}>
              <GrUpdate />&ensp; update
             </Button>
           )}

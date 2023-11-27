@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { FaList } from 'react-icons/fa';
-import { BrowserRouter as Router,Route,Routes, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router,Route,Routes, useLocation, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
 import Content from './components/Content/Content';
-
+import { Link } from 'react-router-dom';
 const App = () => {
   const location=useLocation();
   var path=location.pathname;
-   path=path.slice(1,)
+  path=path.slice(1,)
   const [showSidebar, setShowSidebar] = useState(window.innerWidth >= 768); // Show sidebar by default for widths >= 768px
   const [selectedNavItem, setSelectedNavItem] = useState(path);
 
@@ -38,7 +38,7 @@ const App = () => {
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} setSelectedNavItem={setSelectedNavItem} />
         <Routes>
               <Route path={selectedNavItem} element={<Content selectedNavItem={selectedNavItem} />}>    
-    
+              
         </Route>
         </Routes>
       </div>
