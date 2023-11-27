@@ -40,7 +40,7 @@ router.put('/group', authorizeUser, async (req, res) => {
         groupId,
       },
     })
-    await GroupMember.bulkCreate(
+    const bulkcreateRes = await GroupMember.bulkCreate(
       userIds.map((userId) => {
         return {
           groupId,
@@ -50,7 +50,9 @@ router.put('/group', authorizeUser, async (req, res) => {
     )
 
     res.status(200)
-    res.send('Group created successfully')
+    res.send({
+      message: 'Group modified successfully',
+    })
   } catch (err) {
     res.status(500).send({ message: 'something went wrong', err })
   }
@@ -88,7 +90,9 @@ router.delete('/group', authorizeUser, async (req, res) => {
         id: req.body.groupId,
       },
     })
-    res.status(200).send('Successfully deleted the group')
+    res.status(200).send({
+      message: 'Successfully deleted the group',
+    })
   } catch (err) {
     res.status(500).send({ message: 'something went wrong', err })
   }

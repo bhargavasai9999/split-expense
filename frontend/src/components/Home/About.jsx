@@ -7,16 +7,34 @@ import { RiLoginCircleLine } from 'react-icons/ri'
 import { LuUserPlus2 } from 'react-icons/lu'
 import { googleOauthPopup } from '../../firebase'
 
+import { useToasts } from 'react-toast-notifications'
+
+import api from '../../apis/axiosConfig'
+
 const About = ({ setAuthentication }) => {
   const [login, setlogin] = useState(true)
+  const { addToast } = useToasts()
 
   const handleGoogleOauth = async () => {
-    console.log('clicked')
     try {
       const accessToken = await googleOauthPopup()
-      console.log(accessToken)
-    } catch (err) {
-      console.log(err)
+      const response = await api.post('/google-auth', {
+        accessToken,
+      })
+
+      const jwtToken = response.data.jwtToken
+
+      localStorage.setItem('jwtToken', jwtToken)
+      localStorage.setItem(
+        'userDetails',
+        JSON.stringify(response.data.userDetails)
+      )
+      setAuthentication(true)
+      addToast(response.data.message, { appearance: 'success' })
+    } catch (error) {
+      console.error('Login failed:', error.response.data)
+      addToast(error.response.data.message, { appearance: 'error' })
+      setAuthentication(false)
     }
   }
 

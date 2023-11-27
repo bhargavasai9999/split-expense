@@ -67,8 +67,8 @@ router.post('/google-auth', async (req, res) => {
 
     // if user not exist, create new account
     const newUser = await User.create({
-      email: req.body.email,
-      name: req.body.name,
+      email: user.email,
+      name: user.name,
       isGoogleAuth: true,
     })
     const jwt = signJwtToken(newUser.id)

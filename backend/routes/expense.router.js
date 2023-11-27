@@ -57,13 +57,33 @@ router.get('/oweAndOwed', authorizeUser, async (req, res) => {
       include: [
         { model: User, as: 'user', attributes: ['id', 'name'] },
         { model: User, as: 'lendedUser', attributes: ['id', 'name'] },
+        { model: Expense, as: 'expense', attributes: ['id', 'title'] },
       ],
     })
+
+    /*
+      owed response:
+      [
+        {
+          expenseId: 1,
+          title: 'trip',
+          amount: 100,
+          users:[
+            {
+              userId:1,
+              amount:10,
+              settle: true,
+            }
+          ]
+        }
+      ]
+    */
     const owed = await Owe.findAll({
       where: { toUserId: req.userId, settle: false },
       include: [
         { model: User, as: 'user', attributes: ['id', 'name'] },
         { model: User, as: 'lendedUser', attributes: ['id', 'name'] },
+        { model: Expense, as: 'expense', attributes: ['id', 'title'] },
       ],
     })
     let totalOwe = 0,

@@ -26,7 +26,6 @@ export const Login = ({ handleGoogleOauth, setAuthentication }) => {
         password: logindetails.password,
       })
 
-      console.log(response.data)
       const jwtToken = response.data.jwtToken
 
       localStorage.setItem('jwtToken', jwtToken)
@@ -104,7 +103,6 @@ export const Login = ({ handleGoogleOauth, setAuthentication }) => {
       {/* <a href="#" className=""> */}
       <button
         onClick={() => {
-          console.log('btn click')
           handleGoogleOauth()
         }}
         className="btn text-center input-button bg-light shadow"
