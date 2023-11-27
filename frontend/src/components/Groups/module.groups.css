@@ -1,0 +1,110 @@
+.groupitem-main-div{
+    height:30vh;
+    min-width:fit-content;
+    width: 12vw;
+    background-color: rgb(255, 255, 255);
+    border-radius:10px;
+    margin:10px ;
+    
+    backdrop-filter: blur(10px);
+    transform: scale(1);
+    transition: 0.2s ease-in-out;
+cursor: pointer;
+}
+.groupitem-main-div:hover{
+    transform: scale(0.95);
+    transition: 0.2s ease-in-out;
+   background-color: rgb(243, 243, 243);
+}
+.group-item-image{
+    height:60px;
+    width:60px;
+    filter: brightness(100%);
+filter: saturate(150%);    
+}
+.groupitem-title{
+    font-size: 18px;
+    color:black;
+}
+.groupitem-description{
+    font-size: 16px;
+    color:rgb(193, 101, 101);
+
+    
+}
+.groupcard-create-div{
+    background: rgb(254, 245, 245);
+     height:30vh;
+     min-width:fit-content;
+     width: 12vw;
+         border-radius:10px;
+    margin:10px ;
+    backdrop-filter: blur(10px);
+    transform: scale(1);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+
+}
+.groupcard-create-div:hover{
+    transform: scale(0.95);
+    transition: 0.2s ease-in-out;
+   background-color: rgb(249, 205, 205);
+
+}
+
+
+.group-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .group-popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .group-popup label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .group-popup input,
+  .group-popup select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    font-size: 18px;
+  }
+  
+  .group-popup button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .group-popup button:hover {
+    background-color: #45a049;
+  }
+  
+  .group-popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
