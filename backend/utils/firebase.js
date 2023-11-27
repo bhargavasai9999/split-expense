@@ -1,14 +1,14 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
-const app = initializeApp({
-  apiKey: 'AIzaSyBWaR7GFC6DeBbVOVSCqWaDMeYnxpd_w_s',
-  authDomain: 'nutricheck-app.firebaseapp.com',
-  projectId: 'nutricheck-app',
-  storageBucket: 'nutricheck-app.appspot.com',
-  messagingSenderId: '340022963347',
-  appId: '1:340022963347:web:d981a75d8d74d63c237166',
-})
+const firebaseConfig = {
+  apiKey: 'AIzaSyDE3aRvjzxeDgZ1CkdPMv864Z9-NwB9yjw',
+  authDomain: 'split-expense-c371f.firebaseapp.com',
+  projectId: 'split-expense-c371f',
+  storageBucket: 'split-expense-c371f.appspot.com',
+  messagingSenderId: '350496985299',
+  appId: '1:350496985299:web:a9ab391380e77471a54426',
+}
 
 export const googleOauthPopup = async () => {
   const provider = new GoogleAuthProvider()
