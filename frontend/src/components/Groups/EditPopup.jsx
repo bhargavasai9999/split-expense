@@ -30,6 +30,7 @@ export const EditPopup = ({ show, onClose, data, friends, onDelete,update }) => 
         console.log('Form submitted with edited data:', formData);
         api.put("/group",{name:formData.groupName,userIds:formData.selectedFriends,groupId:formData.groupid},config)
         .then(res=>{
+            //this is wrong toast "this is update request"
              addToast("group deleted successfully", { appearance: 'success' });
         })
         .catch(err=>{
@@ -45,11 +46,11 @@ export const EditPopup = ({ show, onClose, data, friends, onDelete,update }) => 
     };
 
     const handleDelete =async () => {
-        console.log(formData.groupid)
-        await api.delete("/group",{groupId:formData.groupid},config).then(res=>{
+        
+        await api.delete("/group",{groupId:groupid},config).then(res=>{
             addToast("group deleted successfully",{appearance:'success'})
         }).catch(err=>{
-            console.log(err)
+            console.log(err);
             // addToast("something went wrong",{appearance:"danger"})
         })
         onClose();

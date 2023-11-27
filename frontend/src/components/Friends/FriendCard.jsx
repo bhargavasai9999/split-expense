@@ -9,6 +9,7 @@ import {  useToasts } from 'react-toast-notifications';
 import 'bootstrap/dist/css/bootstrap.css';
 import './module.friendcard.css';
 import config from '../../apis/config';
+
 export const FriendCard = () => {
   const { addToast } = useToasts();
   const [friends, setFriends] = useState([]);
@@ -73,7 +74,7 @@ useEffect(()=>{
       <div className="dashboard-title">
         <h2>Friends</h2>
         
-        <button className="add-expense-button" onClick={handleAddFriend}>Add Friend</button>
+        <button className="add-expense-button shadow" onClick={handleAddFriend}>Add Friend</button>
       </div>
       <div className="d-flex justify-content-center m-4 col-12">
         <table id="friends shadow">

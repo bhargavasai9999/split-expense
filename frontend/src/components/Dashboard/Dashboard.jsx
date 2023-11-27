@@ -4,6 +4,8 @@ import { FaHandshake, FaRegHandshake } from 'react-icons/fa';
 import './Dashboard.css';
 import { CreatePopup } from './addExpense';
 import Expense from '../Expenses/Expense';
+import { IoMdAdd } from "react-icons/io";
+
 const Dashboard = () => {
     const [showModal, setShowModal] = useState(false);
     const openModal = () => setShowModal(true);
@@ -13,7 +15,7 @@ const Dashboard = () => {
         <div className="cont">
             <div className="dashboard-title">
                 <h2>Dashboard</h2>
-                <button className="add-expense-button" onClick={openModal}>Add Expense</button>
+                <button className="add-expense-button shadow" onClick={openModal}><IoMdAdd size={25} className='pb-1'/>&ensp;Add Expense</button>
             </div>
 
             <div className="cards-container">
