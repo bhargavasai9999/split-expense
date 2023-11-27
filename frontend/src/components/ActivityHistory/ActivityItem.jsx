@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './module.ActivityHistory.css'
 
-export const ActivityItem = ({ comment, time, sender, status, amount,type}) => {
+export const ActivityItem = ({ time, sender, amount,type}) => {
   return (
     <div className=' d-flex flex-row justify-content-evenly friend-item-main-div shadow col-12' >
     <div className='container-fluid d-flex flex-column'>
@@ -12,9 +12,9 @@ export const ActivityItem = ({ comment, time, sender, status, amount,type}) => {
        
       </div>
       <div className='' style={{marginLeft:"20px"}}>
-        {type=== "paid" ? <h4 className='m-0 item-paidtype'>Paid to </h4> :<h5 className='m-0 item-paidtype'>Received</h5> }
+        {type=== "Paid to" ? <h4 className='m-0 item-paidtype'>Paid to </h4> :<h5 className='m-0 item-paidtype'>Received</h5> }
         <h6 className='m-0 item-name'>{sender}</h6>
-        <p className='m-0 item-comment'>{comment}</p>
+        {/* <p className='m-0 item-comment'>{comment}</p> */}
       </div>
 
       </div>
@@ -22,7 +22,7 @@ export const ActivityItem = ({ comment, time, sender, status, amount,type}) => {
       </div>
       <div className='d-flex flex-column justify-content-start pt-2 ' style={{marginLeft:"20px",marginTop:'5px'}}>
         <h5 className='amount-style'>&#x20B9; {amount}</h5>
-        {status=="pending" ? <h6 className='text-danger fw-bold'>{status}.... </h6> : <h6 className='text-success  fw-bold'>{status}</h6>}
+         <h6 className='text-success  fw-bold'>successful</h6>
       </div>
     </div>
   );
