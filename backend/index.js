@@ -46,7 +46,9 @@ app.use(express.json())
 app.use(cors())
 
 // sequelize
-//   .sync()
+//   .sync({
+//     alter: true,
+//   })
 
 //   .then((value) => {
 //     sequelize

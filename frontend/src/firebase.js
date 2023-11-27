@@ -10,6 +10,8 @@ const firebaseConfig = {
   appId: '1:350496985299:web:a9ab391380e77471a54426',
 }
 
+const app = initializeApp(firebaseConfig)
+
 export const googleOauthPopup = async () => {
   const provider = new GoogleAuthProvider()
 

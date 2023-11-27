@@ -1,15 +1,17 @@
 import admin from 'firebase-admin'
 import { getAuth } from 'firebase-admin/auth'
-import serviceAccount from '../serviceAccountKey.json' assert { type: 'json' }
+// import serviceAccount from '../serviceAccountKey.json' assert { type: 'json' }
 
 // Firebase setup
 const app = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.applicationDefault(),
 })
 
-const getUserGoogleAuth = async (accessToken) => {
-  try {
-    const decodedToken = await getAuth(admin).verifyIdToken(accessToken)
-    console.log(decodedToken)
-  } catch (err) {}
+export const getUserGoogleAuth = async (accessToken) => {
+  const decodedToken = await app.auth().verifyIdToken(accessToken)
+  const user = {
+    name: decodedToken.name,
+    email: decodedToken.email,
+  }
+  return user
 }
