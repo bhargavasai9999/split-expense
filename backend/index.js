@@ -10,6 +10,7 @@ import { AuthRouters } from './routes/auth.router.js'
 import { FriendRouters } from './routes/friend.router.js'
 import { GroupRouters } from './routes/group.router.js'
 import { ExpenseRouters } from './routes/expense.router.js'
+import { Activity } from './models/Activity.js'
 Group.belongsToMany(User, {
   as: 'user', // Alias for the association
   through: 'GroupMember',
@@ -22,6 +23,19 @@ User.belongsToMany(Group, {
   foreignKey: 'userId',
   otherKey: 'groupId',
 })
+User.belongsToMany(User, {
+  as: 'Friends', // Alias for the association
+  through: 'Friendship', // Name of the join table
+  foreignKey: 'userId', // Foreign key in the join table that points to the user
+  otherKey: 'friendId', // Foreign key in the join table that points to the friend
+})
+
+Activity.belongsTo(User, { foreignKey: 'userId' })
+Activity.belongsTo(Expense, { foreignKey: 'userId' })
+Expense.belongsTo(User, { foreignKey: 'userId' })
+Owe.belongsTo(User, { as: 'user', foreignKey: 'userId' })
+Owe.belongsTo(User, { as: 'lendedUser', foreignKey: 'toUserId' })
+Owe.belongsTo(Expense, { as: 'expense', foreignKey: 'expenseId' })
 
 dotenv.config()
 await checkDbConnection()
@@ -32,7 +46,7 @@ app.use(express.json())
 app.use(cors())
 
 // sequelize
-//   .sync({ alter: true })
+//   .sync()
 
 //   .then((value) => {
 //     sequelize
@@ -43,6 +57,7 @@ app.use(cors())
 //   .catch((err) => {
 //     console.log('table not cred', err)
 //   })
+
 app.get('/', (req, res) => {
   return res.send('server is up and running...')
 })

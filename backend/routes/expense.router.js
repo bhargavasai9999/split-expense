@@ -90,7 +90,6 @@ router.post('/settle', authorizeUser, async (req, res) => {
         { model: User, as: 'lendedUser', attributes: ['id', 'name'] },
       ],
     })
-    console.log(owe, owe.lendedUser, owe.user)
     const activityDetails = [
       {
         description: 'Paid to',
@@ -105,7 +104,6 @@ router.post('/settle', authorizeUser, async (req, res) => {
         userId: owe.lendedUser.id,
       },
     ]
-    console.log(req.body)
     const activity = await Activity.bulkCreate(activityDetails)
     return res.status(200).send({ message: 'settled successfully' })
   } catch (err) {

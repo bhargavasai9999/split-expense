@@ -22,10 +22,3 @@ export const User = sequelize.define(
     timestamps: true,
   }
 )
-
-User.belongsToMany(User, {
-  as: 'Friends', // Alias for the association
-  through: 'Friendship', // Name of the join table
-  foreignKey: 'userId', // Foreign key in the join table that points to the user
-  otherKey: 'friendId', // Foreign key in the join table that points to the friend
-})

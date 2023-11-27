@@ -21,5 +21,3 @@ export const Expense = sequelize.define(
     timestamps: true,
   }
 )
-
-Expense.belongsTo(User, { foreignKey: 'userId' })

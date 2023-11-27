@@ -23,6 +23,3 @@ export const Activity = sequelize.define(
     timestamps: true,
   }
 )
-
-Activity.belongsTo(User, { foreignKey: 'userId' })
-Activity.belongsTo(Expense, { foreignKey: 'userId' })
