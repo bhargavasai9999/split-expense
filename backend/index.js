@@ -10,7 +10,6 @@ import { AuthRouters } from './routes/auth.router.js'
 import { FriendRouters } from './routes/friend.router.js'
 import { GroupRouters } from './routes/group.router.js'
 import { ExpenseRouters } from './routes/expense.router.js'
-import serviceAccount from './serviceAccountKey.json'
 Group.belongsToMany(User, {
   as: 'user', // Alias for the association
   through: 'GroupMember',
@@ -33,7 +32,7 @@ app.use(express.json())
 app.use(cors())
 
 // sequelize
-//   .sync({ force: true })
+//   .sync({ alter: true })
 
 //   .then((value) => {
 //     sequelize
