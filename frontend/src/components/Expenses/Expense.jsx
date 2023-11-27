@@ -79,6 +79,23 @@ const Expense = () => {
 
     return (
         <div className="expense-page">
+        <div className="right-section">
+                <center>
+                    <h3>You Owe</h3>
+                </center>
+                {settledExpenses.map((expense) => (
+                    <div className="expense-card" key={expense.id}>
+                        <div className="expense-header">
+                            <div>{expense.title}</div>
+                            <div>${expense.amount}</div>
+                            <div>{expense.name}</div>
+                            <button title='click to settle' className="settle-button" onClick={() => handleSettle(expense)}>
+                                <FaCheck /> 
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
             <div className="left-section">
                 <center>
                     <h3>Owes You</h3>
@@ -107,23 +124,7 @@ const Expense = () => {
                     </div>
                 ))}
             </div>
-            <div className="right-section">
-                <center>
-                    <h3>You Owe</h3>
-                </center>
-                {settledExpenses.map((expense) => (
-                    <div className="expense-card" key={expense.id}>
-                        <div className="expense-header">
-                            <div>{expense.title}</div>
-                            <div>${expense.amount}</div>
-                            <div>{expense.name}</div>
-                            <button title='click to settle' className="settle-button" onClick={() => handleSettle(expense)}>
-                                <FaCheck /> 
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
+            
         </div>
     );
 };

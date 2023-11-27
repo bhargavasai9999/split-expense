@@ -1,7 +1,5 @@
-
 .sidebar {
-  
-  width: 0; 
+  width: 0;
   height: 100vh;
   background-color: #333;
   color: #fff;
@@ -9,65 +7,63 @@
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
-  overflow-x: hidden; 
-  transition: width 0.3s ease; 
+  overflow-x: hidden;
+  transition: width 0.3s ease;
 }
 
 .sidebar.show {
-  width: 250px; 
+  width: 250px;
 }
-  .logo h2 {
-    margin: 0;
-  }
-  
-  .user {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .user img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-  
-  .nav-items {
-    margin-top: 10px;
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .nav-items li {
-    cursor: pointer;
-    padding: 20px;
-    display: flex;
-    align-items: center; 
-    transition: background-color 0.3s ease;
-  }
-  
-  .nav-items li:hover {
-    background-color: #555;
-  }
-  
-  .nav-items li.active {
-    background-color: #555;
-  }
-  
-  .nav-items span {
-    margin-left: 10px; 
-  }
-  
-  .nav-items li.show-text span {
-    display: inline;
-  }
-  
-  @media (max-width: 768px) {
-    
-  }
-  
+
+.logo h2 {
+  margin: 0;
+}
+
+.user {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.nav-items {
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-items li {
+  cursor: pointer;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.nav-items li:hover {
+  background-color: #555;
+}
+
+.nav-items li.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.nav-items span {
+  margin-left: 10px;
+}
+
+/* Other styles for navigation items */
+@media (max-width: 768px) {
+  /* Add styles for mobile if needed */
+}

@@ -10,7 +10,10 @@ import Home from "./components/Home/Home";
 
 const App = () => {
   const [isAuthenticated, setAuthentication]  = useState(localStorage.getItem('jwtToken'));
-
+  const onLogout = () => {
+    setAuthentication(false);
+    useNavigate('/')
+  }
   const location = useLocation();
   var path = location.pathname;
   path = path.slice(1,)
@@ -29,22 +32,18 @@ const App = () => {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-
-
     };
   }, []);
 
   return (
     isAuthenticated ? (
-
       <div className="app">
         <button className="hamburger" onClick={handleHamburgerClick}>
           <FaList />
         </button>
-        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} setSelectedNavItem={setSelectedNavItem} />
+        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} setSelectedNavItem={setSelectedNavItem} onLogout={onLogout}/>
         <Routes>
           <Route path={selectedNavItem} element={<Content selectedNavItem={selectedNavItem} />}>
-
           </Route>
         </Routes>
       </div>

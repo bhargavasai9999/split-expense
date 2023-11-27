@@ -3,13 +3,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { FaHandshake, FaRegHandshake } from 'react-icons/fa'; 
 import './Dashboard.css';
 import { CreatePopup } from './addExpense';
+import Expense from '../Expenses/Expense';
 const Dashboard = () => {
     const [showModal, setShowModal] = useState(false);
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
     return (
         <>
-        <div className="content">
+        <div className="cont">
             <div className="dashboard-title">
                 <h2>Dashboard</h2>
                 <button className="add-expense-button" onClick={openModal}>Add Expense</button>
@@ -34,6 +35,7 @@ const Dashboard = () => {
             </div>
         </div>
         <CreatePopup show={showModal} onClose={closeModal}/>
+        <Expense/>
         </>
     );
 };

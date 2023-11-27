@@ -8,7 +8,7 @@ router.post('/login', async (req, res) => {
   const foundUser = await User.findOne({ where: { email: req.body.email } })
   console.log(foundUser)
   if (!foundUser) {
-    res.status(400).send({ message: 'Email is not registered with us' })
+    res.status(400).send({ message: 'Email is not registered with us, please sign up' })
     return
   }
   if (foundUser.password === req.body.password) {
@@ -34,7 +34,7 @@ router.post('/signup', async (req, res) => {
   const foundUser = await User.findOne({ where: { email: req.body.email } })
   if (foundUser) {
     return res.status(400).send({
-      message: 'This email is already registered with us',
+      message: 'This email is already registered with us, Please Log In',
     })
   } else {
     const newUser = await User.create({
@@ -43,7 +43,7 @@ router.post('/signup', async (req, res) => {
       password: req.body.password,
     })
 
-    res.status(200).send({ message: 'Successfully registered' })
+    res.status(200).send({ message: 'Successfully registered, Please Log In' })
   }
 })
 

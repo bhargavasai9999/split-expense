@@ -3,8 +3,11 @@ import './module.home.css';
 import { FcGoogle } from "react-icons/fc";
 import { FaRegEye } from "react-icons/fa";
 import { useState } from 'react';
+import {  useToasts } from 'react-toast-notifications';
 import api from '../../apis/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 export const Login = ({ setAuthentication }) => {
+  const { addToast } = useToasts();
   const [logindetails, setlogindetails] = useState({
     email: "",
     password: ""
@@ -19,38 +22,28 @@ export const Login = ({ setAuthentication }) => {
     e.preventDefault();
 
     try {
-      // Make a POST request to your login API endpoint
+     
       const response = await api.post('/login',  {
         email: logindetails.email,
         password: logindetails.password,
       });
+      
 
-      // Handle the response from the server
-      console.log(response.data); // Log the server response
+      console.log(response.data); 
       const jwtToken = response.data.jwtToken;
 
-      // Save JWT token and user details to localStorage
       localStorage.setItem('jwtToken', jwtToken);
       localStorage.setItem('userDetails', JSON.stringify(response.data.userDetails));
-
-      // Assuming the server returns a JWT token upon successful login
-      // You may want to save the token in the client's state or localStorage for further authentication
-
-      // For simplicity, let's assume setting authentication status to true upon successful login
       setAuthentication(true);
-
-      // Redirect to another page if needed
-      // For example, using react-router-dom
-      // history.push('/dashboard');
+      addToast(response.data.message, { appearance: 'success' });
+  
     } catch (error) {
-      // Handle error responses from the server
       console.error('Login failed:', error.response.data);
-
-      // For simplicity, setting authentication status to false upon failed login
+      addToast(error.response.data.message, { appearance: 'error' });
       setAuthentication(false);
     }
 
-    // Reset login details
+  
     setlogindetails({
       email: '',
       password: '',
@@ -67,7 +60,7 @@ export const Login = ({ setAuthentication }) => {
     }
   };
   return (
-    //Login UI Code
+    
     <div className='p-3 text-center'>
       <div className='d-flex justify-content-center'>
         <form onSubmit={handlesubmit} autoComplete='on'>
@@ -85,7 +78,6 @@ export const Login = ({ setAuthentication }) => {
       <br />
       <p className='text-center'>------ or -------</p>
 
-      {/* Google authentication in login */}
       <a href="#" className="">
         <button className='btn text-center input-button bg-light shadow'><FcGoogle size={30} /> Login with Google</button>
       </a>

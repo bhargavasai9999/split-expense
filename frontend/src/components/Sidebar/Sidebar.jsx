@@ -1,13 +1,14 @@
 // Sidebar.js
 
 import React, { useState } from 'react';
-import { FaHome, FaUser, FaUsers, FaChartBar, FaDollarSign } from 'react-icons/fa';
+import { FaHome, FaUser, FaUsers, FaChartBar} from 'react-icons/fa';
 import './Sidebar.css';
 import { ProfilePopup } from '../Profile/ProfilePopup';
 import pic from './pic.jpg';
+import { FiLogOut } from "react-icons/fi";
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const Sidebar = ({ showSidebar, setShowSidebar, selectedNavItem, setSelectedNavItem }) => {
+const Sidebar = ({onLogout, showSidebar, setShowSidebar, selectedNavItem, setSelectedNavItem }) => {
 
   const [showmodal, setmodal] = useState(false);
   const openModal = () => setmodal(true);
@@ -17,16 +18,20 @@ const Sidebar = ({ showSidebar, setShowSidebar, selectedNavItem, setSelectedNavI
 
   // Parse the user details string into an object
   const user = JSON.parse(userString);
-
+  const handleLogout = () => {
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('userDetails');
+    onLogout();
+  }
   // Access the username from the user object
   const username = user ? user.username : "User"
-  
+
   const navItems = [
     { id: 'dashboard', icon: <FaHome />, text: 'Dashboard' },
     { id: 'friends', icon: <FaUsers />, text: 'Friends' },
     { id: 'groups', icon: <FaUsers />, text: 'Groups' },
     { id: 'activities', icon: <FaChartBar />, text: 'Activities' },
-    { id: 'expenses', icon: <FaDollarSign />, text: 'All Expenses' },
+
   ];
 
   const handleNavItemClick = (itemId) => {
@@ -59,6 +64,10 @@ const Sidebar = ({ showSidebar, setShowSidebar, selectedNavItem, setSelectedNavI
             <span>{item.text}</span>
           </li>
         ))}
+        <li onClick={handleLogout}>
+         <FiLogOut/>
+          <span>Logout</span>
+        </li>
       </ul>
     </nav>
   );

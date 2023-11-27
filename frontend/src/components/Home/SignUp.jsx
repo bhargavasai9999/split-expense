@@ -3,7 +3,9 @@ import './module.home.css';
 import { FcGoogle } from "react-icons/fc";
 import { useState } from 'react';
 import api from '../../apis/axiosConfig';
+import {  useToasts } from 'react-toast-notifications';
 export const SignUp = () => {
+  const { addToast } = useToasts();
   const [signup, setsignup] = useState({
     name: "",
     email: "",
@@ -34,10 +36,10 @@ export const SignUp = () => {
         email: signup.email,
         password: signup.password,
       });
+      addToast(response.data.message, { appearance: 'success' });
       console.log(response.data); 
     } catch (error) {
-     
-      console.error('Signup failed:', error.response.data);
+      addToast(error.response.data.message, {appearance: 'info'})
     }
 
     setsignup({
