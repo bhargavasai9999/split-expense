@@ -1,0 +1,95 @@
+.popup-friends{
+    scroll-behavior: smooth;
+    overflow-y:scroll;
+    height:200px;
+    flex-wrap: wrap;
+}
+.group-popup-button{
+    height: 40px;
+    width:60px;
+    text-align: center;
+    background-color:  rebeccapurple;
+}
+.popup-close::selection{
+    border: 0px;
+}
+.popup-input::selection{
+    border:1px;
+    text-align: center;
+
+}
+.popup-label{
+    font-weight: bold;
+    font-size:20px;
+}
+
+.scrollable-checklist {
+    max-height: 200px; 
+    overflow-y: auto;
+}
+
+.checklist-container {
+    overflow-y: auto;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.checklist-container {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.form-check {
+    margin: 5px 0;
+}
+
+.modal-footer {
+    border-top: 1px solid #ddd;
+    padding: 15px;
+}
+
+.modal-footer button {
+    margin-right: 10px;
+}
+
+.modal-footer .btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
