@@ -10,7 +10,6 @@ const [data,setdata]=useState([]);
 const get_activity=async ()=>{
   await api.get("/activity",config).then(res=>{
     setdata(res.data);
-    console.log(res.data.message);
     console.log(data)
   })
   .catch(err=>{
@@ -20,8 +19,49 @@ const get_activity=async ()=>{
 }
 useEffect(()=>{
   get_activity();
-})
+},[])
   
+// const data=[{
+//   type:"paid",
+//   friendName:"parshuram",
+//   comment:"biriyani",
+//   amount:100,
+//   time:"20 August",
+//   status:'successful'
+// },{
+//   type:"received",
+//   friendName:"parshuram",
+//   comment:"biriyani",
+//   amount:100,
+//   time:"21 August",
+//   status:"successful"
+// },{
+//   type:"received",
+//   friendName:"parshuram",
+//   comment:"biriyani",
+//   amount:300,
+//   time:"21 August",
+//   status:"successful"
+// }
+// ,{
+//   type:"paid",
+//   friendName:"parshuram",
+//   comment:"waiter",
+//   amount:500,
+//   time:"21 August",
+//   status:"successful"
+// }
+
+// ,{
+//   type:"paid",
+//   friendName:"parshuram",
+//   comment:"grocery",
+//   amount:400,
+//   time:"21 August",
+//   status:"successful"
+// }
+
+// ]
   return (
     <div className="container-fluid col-12 d-flex flex-column flex-wrap justify-content-between activitycard-body-div">
       <div className="container"> 
@@ -42,44 +82,3 @@ useEffect(()=>{
   )
 }
 
-// const data=[{
-//   type:"paid",
-//   sender:"parshuram",
-//   comment:"biriyani",
-//   amount:100,
-//   time:"20 August",
-//   status:'successful'
-// },{
-//   type:"received",
-//   sender:"parshuram",
-//   comment:"biriyani",
-//   amount:100,
-//   time:"21 August",
-//   status:"successful"
-// },{
-//   type:"received",
-//   sender:"parshuram",
-//   comment:"biriyani",
-//   amount:300,
-//   time:"21 August",
-//   status:"successful"
-// }
-// ,{
-//   type:"paid",
-//   sender:"parshuram",
-//   comment:"waiter",
-//   amount:500,
-//   time:"21 August",
-//   status:"successful"
-// }
-
-// ,{
-//   type:"paid",
-//   sender:"parshuram",
-//   comment:"grocery",
-//   amount:400,
-//   time:"21 August",
-//   status:"successful"
-// }
-
-//]

@@ -113,7 +113,6 @@ router.get('/settle', authorizeUser, async (req, res) => {
 router.get('/activity', authorizeUser, async (req, res) => {
   try {
     const activity = await Activity.findAll({ where: { userId: req.userId } })
-    console.log(activity);
     if (!activity)
       return res
         .status(400)

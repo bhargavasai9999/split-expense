@@ -6,6 +6,7 @@ import { GroupItem } from './GroupItem';
 import { MdGroups3 } from "react-icons/md";
 import api from '../../apis/axiosConfig';
 import {  useToasts } from 'react-toast-notifications';
+import 'bootstrap/dist/css/bootstrap.css';
 
 export const GroupCard = () => {
     const [showModal, setShowModal] = useState(false);
@@ -21,7 +22,6 @@ export const GroupCard = () => {
     };
 
     const closeModal = () => {
-        console.log("hello")
         setShowModal(false);
     };
 

@@ -7,7 +7,8 @@ import { ProfilePopup } from '../Profile/ProfilePopup';
 import pic from './pic.jpg';
 import { FiLogOut } from "react-icons/fi";
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.css';
+import logo from  './logo.png'
 const Sidebar = ({onLogout, showSidebar, setShowSidebar, selectedNavItem, setSelectedNavItem }) => {
 
   const [showmodal, setmodal] = useState(false);
@@ -46,14 +47,14 @@ const Sidebar = ({onLogout, showSidebar, setShowSidebar, selectedNavItem, setSel
   return (
     <nav className={`sidebar ${showSidebar ? 'show' : ''}`}>
       <div className="logo">
-        <h2>Split Expenses</h2>
+        <h3><img src={logo} className='logo-img m-0'/> Split Expenses</h3>
       </div>
       <div className="user" onClick={openModal}>
         <img src={pic} alt="User" />
-        <p>Hello,{username}</p>
+        <h5>Hello,{username}</h5>
       </div>
       {showmodal == true && <ProfilePopup show={showmodal} close={closemodal} data={user} />}
-      <ul className="nav-items">
+      <ul className="nav-items ">
         {navItems.map((item) => (
           <li
             key={item.id}
@@ -61,7 +62,7 @@ const Sidebar = ({onLogout, showSidebar, setShowSidebar, selectedNavItem, setSel
             className={selectedNavItem === item.id ? 'active' : ''}
           >
             {item.icon}
-            <span>{item.text}</span>
+            <span className=''>{item.text}</span>
           </li>
         ))}
         <li onClick={handleLogout}>
