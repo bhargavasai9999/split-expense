@@ -76,25 +76,27 @@ router.get('/oweAndOwed', authorizeUser, async (req, res) => {
   }
 })
 
-router.get('/settle', authorizeUser, async (req, res) => {
+router.post('/settle', authorizeUser, async (req, res) => {
   try {
-    const owe = await Owe.update(
+    await Owe.update(
       { settle: true },
       {
         where: { id: req.body.oweId },
-        include: [
-          { model: User, as: 'user', attributes: ['id', 'name'] },
-          { model: User, as: 'lendedUser', attributes: ['id', 'name'] },
-        ],
       }
     )
-
+    const owe = await Owe.findByPk(req.body.oweId, {
+      include: [
+        { model: User, as: 'user', attributes: ['id', 'name'] },
+        { model: User, as: 'lendedUser', attributes: ['id', 'name'] },
+      ],
+    })
+    console.log(owe, owe.lendedUser, owe.user)
     const activityDetails = [
       {
         description: 'Paid to',
         friendName: owe.lendedUser.name,
         amount: owe.amount,
-        userId: req.userId,
+        userId: owe.user.userId,
       },
       {
         description: 'Recieved',
@@ -103,6 +105,7 @@ router.get('/settle', authorizeUser, async (req, res) => {
         userId: owe.lendedUser.id,
       },
     ]
+    console.log(req.body)
     const activity = await Activity.bulkCreate(activityDetails)
     return res.status(200).send({ message: 'settled successfully' })
   } catch (err) {
@@ -113,10 +116,11 @@ router.get('/settle', authorizeUser, async (req, res) => {
 router.get('/activity', authorizeUser, async (req, res) => {
   try {
     const activity = await Activity.findAll({ where: { userId: req.userId } })
-    if (!activity)
-      return res
-        .status(400)
-        .send({ message: 'There is no activity currently available' })
+    if (activity.length == 0)
+      return res.status(400).send({
+        message:
+          'There is no activity currently. Get started by splitting expense.',
+      })
     res.status(200).send(activity)
   } catch (err) {
     res.status(500).send({ message: 'Something went wrong', err })
