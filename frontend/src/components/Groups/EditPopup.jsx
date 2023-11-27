@@ -44,9 +44,14 @@ export const EditPopup = ({ show, onClose, data, friends, onDelete,update }) => 
         onClose();
     };
 
-    const handleDelete = () => {
-        // Perform the delete action here
-        onDelete(data.id); // Assuming you pass the group ID to onDelete
+    const handleDelete =async () => {
+        console.log(formData.groupid)
+        await api.delete("/group",{groupId:formData.groupid},config).then(res=>{
+            addToast("group deleted successfully",{appearance:'success'})
+        }).catch(err=>{
+            console.log(err)
+            // addToast("something went wrong",{appearance:"danger"})
+        })
         onClose();
     };
 
@@ -106,6 +111,9 @@ export const EditPopup = ({ show, onClose, data, friends, onDelete,update }) => 
             <Modal.Footer>
                 <Button className='m-auto popup-button fw-bold shadow ' onClick={handleFormSubmit}>
                     <GrUpdate size={20} className='pb-1' /> &ensp;Update
+                </Button>
+                <Button className='m-auto popup-button fw-bold shadow ' onClick={handleDelete}>
+                    <GrTrash size={20} className='pb-1' /> &ensp;Delete
                 </Button>
                 
             </Modal.Footer>

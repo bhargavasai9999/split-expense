@@ -33,7 +33,8 @@ export const GroupItem = ({name}) => {
             {name[0]?.toLowerCase() =="z" && <img src="src/static/A (26).png" className='group-item-image m-auto mt-0' />}
         
             <h4 className='groupitem-title mt-0'> {name}</h4>
-            <h6 className='groupitem-description'>view </h6>
+            <h6 className='groupitem-description text-secondary'>view group  </h6>
+            
         </div>
    
   )

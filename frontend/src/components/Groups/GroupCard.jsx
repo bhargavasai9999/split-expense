@@ -7,7 +7,7 @@ import { MdGroups3 } from "react-icons/md";
 import api from '../../apis/axiosConfig';
 import {  useToasts } from 'react-toast-notifications';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import config from '../../apis/config';
 export const GroupCard = () => {
     const [showModal, setShowModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
@@ -36,12 +36,7 @@ export const GroupCard = () => {
         setEditModal(false);
         setEditedGroupIndex(null);
     };
-    const token=localStorage.getItem('jwtToken');
-    const config = {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    };
+
 const getfriendlist= async ()=>{
     await api.get("/friends",config).then(res=>{
         setfriendlist(res.data);
@@ -79,7 +74,7 @@ useEffect(()=>{
                 {data.length > 0 &&
                     data.map((groupdata) => (
                         <div key={groupdata.id} onClick={() => {openEditModal(groupdata)}}>
-                            <GroupItem name={groupdata.name} />
+                            <GroupItem name={groupdata.name} id={groupdata.id} />
                         </div>
                     ))}
             </div>
