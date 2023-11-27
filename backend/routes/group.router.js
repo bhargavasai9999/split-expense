@@ -80,4 +80,17 @@ router.get('/group/:id', authorizeUser, async (req, res) => {
   }
 })
 
+router.delete('/group', authorizeUser, async (req, res) => {
+  try {
+    await Group.destroy({
+      where: {
+        id: req.body.groupId,
+      },
+    })
+    res.status(200).send('Successfully deleted the group')
+  } catch (err) {
+    res.status(500).send({ message: 'something went wrong', err })
+  }
+})
+
 export const GroupRouters = router
