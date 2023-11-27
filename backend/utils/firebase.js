@@ -1,24 +1,13 @@
-import { initializeApp } from 'firebase/app'
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import admin from 'firebase-admin'
+import { getAuth } from 'firebase-admin/auth'
+// Firebase setup
+const app = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+})
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyDE3aRvjzxeDgZ1CkdPMv864Z9-NwB9yjw',
-  authDomain: 'split-expense-c371f.firebaseapp.com',
-  projectId: 'split-expense-c371f',
-  storageBucket: 'split-expense-c371f.appspot.com',
-  messagingSenderId: '350496985299',
-  appId: '1:350496985299:web:a9ab391380e77471a54426',
-}
-
-export const googleOauthPopup = async () => {
-  const provider = new GoogleAuthProvider()
-
-  const auth = getAuth()
+const getUserGoogleAuth = async (accessToken) => {
   try {
-    const result = await signInWithPopup(auth, provider)
-    return result.user.getIdToken()
-    // ...
-  } catch (error) {
-    console.log(error)
-  }
+    const decodedToken = await getAuth(admin).verifyIdToken(accessToken)
+    console.log(decodedToken)
+  } catch (err) {}
 }

@@ -1,4 +1,5 @@
 import express from 'express'
+import { initializeApp } from 'firebase-admin/app'
 import { User } from '../models/User.js'
 import { signJwtToken } from '../utils/jwt.js'
 
