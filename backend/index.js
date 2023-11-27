@@ -10,7 +10,6 @@ import { AuthRouters } from './routes/auth.router.js'
 import { FriendRouters } from './routes/friend.router.js'
 import { GroupRouters } from './routes/group.router.js'
 import { ExpenseRouters } from './routes/expense.router.js'
-
 Group.belongsToMany(User, {
   as: 'user', // Alias for the association
   through: 'GroupMember',
@@ -26,13 +25,14 @@ User.belongsToMany(Group, {
 
 dotenv.config()
 await checkDbConnection()
+
 const app = express()
 
 app.use(express.json())
 app.use(cors())
 
 // sequelize
-//   .sync({ force: true })
+//   .sync({ alter: true })
 
 //   .then((value) => {
 //     sequelize

@@ -15,9 +15,7 @@ router.post('/group', authorizeUser, async (req, res) => {
     const admin = await User.findByPk(req.userId)
     members.push(admin)
     await group.addUser(members)
-    console.log(members)
-
-    return res.status(200).send({message:'Group created successfully'})
+    return res.status(200).send('Group created successfully')
   } catch (err) {
     res.status(500).send({ message: 'something went wrong', err })
   }
@@ -77,6 +75,19 @@ router.get('/group/:id', authorizeUser, async (req, res) => {
       attributes: ['id', 'name', 'email'],
     })
     res.status(200).send(members)
+  } catch (err) {
+    res.status(500).send({ message: 'something went wrong', err })
+  }
+})
+
+router.delete('/group', authorizeUser, async (req, res) => {
+  try {
+    await Group.destroy({
+      where: {
+        id: req.body.groupId,
+      },
+    })
+    res.status(200).send('Successfully deleted the group')
   } catch (err) {
     res.status(500).send({ message: 'something went wrong', err })
   }
