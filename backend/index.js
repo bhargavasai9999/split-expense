@@ -11,6 +11,9 @@ import { FriendRouters } from './routes/friend.router.js'
 import { GroupRouters } from './routes/group.router.js'
 import { ExpenseRouters } from './routes/expense.router.js'
 import { Activity } from './models/Activity.js'
+
+// Entity associations
+
 Group.belongsToMany(User, {
   as: 'user', // Alias for the association
   through: 'GroupMember',
@@ -38,6 +41,8 @@ Owe.belongsTo(User, { as: 'lendedUser', foreignKey: 'toUserId' })
 Owe.belongsTo(Expense, { as: 'expense', foreignKey: 'expenseId' })
 
 dotenv.config()
+
+// Check database connection
 await checkDbConnection()
 
 const app = express()
@@ -45,20 +50,21 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// sequelize
-//   .sync({
-//     alter: true,
-//   })
+// Sync all models to the database if relations not exist
+sequelize
+  .sync({
+    alter: true,
+  })
 
-//   .then((value) => {
-//     sequelize
-//       .getQueryInterface()
-//       .showAllTables()
-//       .then((tbls) => console.log('Available Tables', tbls))
-//   })
-//   .catch((err) => {
-//     console.log('table not cred', err)
-//   })
+  .then((value) => {
+    sequelize
+      .getQueryInterface()
+      .showAllTables()
+      .then((tbls) => console.log('Available Tables', tbls))
+  })
+  .catch((err) => {
+    console.log('table not cred', err)
+  })
 
 app.get('/', (req, res) => {
   return res.send('server is up and running...')
@@ -69,6 +75,6 @@ app.use(FriendRouters)
 app.use(GroupRouters)
 app.use(ExpenseRouters)
 
-app.listen(5000, () => {
+app.listen(process.env.PORT, () => {
   console.log('server is running in the port 5000...')
 })
