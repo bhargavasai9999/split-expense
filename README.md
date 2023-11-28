@@ -1,5 +1,24 @@
 # split-expense
 
+## Key Features:
+### **User Authentication:**
+
+Secure login through email or Google authentication.
+
+### **Dashboard:**
+
+Overview of total expenses.
+
+Display of amounts owed to and by the user.
+
+Settle debts with a convenient "Settle" button.
+
+### **Expense Management:**
+
+Create and split expenses among friends.
+
+Create groups among users and split expenses within the defined group.
+
 ## Run Following commands to Test application locally in your device
 
 Clone the project
