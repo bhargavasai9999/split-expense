@@ -26,7 +26,6 @@ const Expense = () => {
             details: [
                 { name: 'Varun', individualAmount: 320, status: 'paid' },
                 { name: 'Parshu', individualAmount: 30, status: 'not paid' },
-
             ],
         },
         

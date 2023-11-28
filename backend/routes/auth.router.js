@@ -20,6 +20,7 @@ router.post('/login', async (req, res) => {
       message: 'User successfully authenticated',
       jwtToken: jwt,
       userDetails: {
+        userId : foundUser.id,
         username: foundUser.name,
         email: foundUser.email,
         isProfileCompleted: foundUser.isProfileCompleted,
