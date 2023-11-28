@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios'
 // create axios instance
-const api=axios.create({
-    baseURL:"http://localhost:5000"
+const api = axios.create({
+  baseURL: 'https://split-expense.onrender.com',
 })
-export default api;
+export default api

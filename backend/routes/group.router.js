@@ -13,6 +13,7 @@ router.post('/group', authorizeUser, async (req, res) => {
     const group = await Group.create({ name })
     const members = await User.findAll({ where: { id: userIds } })
     const admin = await User.findByPk(req.userId)
+
     members.push(admin)
     await group.addUser(members)
     return res.status(200).send('Group created successfully')
@@ -39,7 +40,7 @@ router.put('/group', authorizeUser, async (req, res) => {
         groupId,
       },
     })
-    await GroupMember.bulkCreate(
+    const bulkcreateRes = await GroupMember.bulkCreate(
       userIds.map((userId) => {
         return {
           groupId,
@@ -49,7 +50,9 @@ router.put('/group', authorizeUser, async (req, res) => {
     )
 
     res.status(200)
-    res.send('Group created successfully')
+    res.send({
+      message: 'Group modified successfully',
+    })
   } catch (err) {
     res.status(500).send({ message: 'something went wrong', err })
   }
@@ -75,6 +78,21 @@ router.get('/group/:id', authorizeUser, async (req, res) => {
       attributes: ['id', 'name', 'email'],
     })
     res.status(200).send(members)
+  } catch (err) {
+    res.status(500).send({ message: 'something went wrong', err })
+  }
+})
+
+router.delete('/group', authorizeUser, async (req, res) => {
+  try {
+    await Group.destroy({
+      where: {
+        id: req.body.groupId,
+      },
+    })
+    res.status(200).send({
+      message: 'Successfully deleted the group',
+    })
   } catch (err) {
     res.status(500).send({ message: 'something went wrong', err })
   }

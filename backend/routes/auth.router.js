@@ -1,6 +1,8 @@
 import express from 'express'
+import { initializeApp } from 'firebase-admin/app'
 import { User } from '../models/User.js'
 import { signJwtToken } from '../utils/jwt.js'
+import { getUserGoogleAuth } from '../utils/firebase.js'
 
 const router = express.Router()
 
@@ -8,14 +10,14 @@ router.post('/login', async (req, res) => {
   const foundUser = await User.findOne({ where: { email: req.body.email } })
   console.log(foundUser)
   if (!foundUser) {
-    res.status(400).send({ message: 'Email is not registered with us, please sign up' })
+    res
+      .status(400)
+      .send({ message: 'Email is not registered with us, please sign up' })
     return
   }
   if (foundUser.password === req.body.password) {
     const userId = foundUser.id
-    console.log('===id', foundUser.id)
     const jwt = signJwtToken(userId)
-    console.log(jwt)
     res.status(200).send({
       message: 'User successfully authenticated',
       jwtToken: jwt,
@@ -23,7 +25,6 @@ router.post('/login', async (req, res) => {
         userId : foundUser.id,
         username: foundUser.name,
         email: foundUser.email,
-        isProfileCompleted: foundUser.isProfileCompleted,
       },
     })
   } else {
@@ -45,6 +46,47 @@ router.post('/signup', async (req, res) => {
     })
 
     res.status(200).send({ message: 'Successfully registered, Please Log In' })
+  }
+})
+
+router.post('/google-auth', async (req, res) => {
+  try {
+    const user = await getUserGoogleAuth(req.body.accessToken)
+
+    const foundUser = await User.findOne({ where: { email: user.email } })
+    if (foundUser) {
+      const jwt = signJwtToken(foundUser.id)
+      return res.status(200).send({
+        message: 'User successfully authenticated',
+        jwtToken: jwt,
+        userDetails: {
+          username: foundUser.name,
+          email: foundUser.email,
+        },
+      })
+    }
+
+    // if user not exist, create new account
+    const newUser = await User.create({
+      email: user.email,
+      name: user.name,
+      isGoogleAuth: true,
+    })
+    const jwt = signJwtToken(newUser.id)
+    return res.status(200).send({
+      message: 'User successfully authenticated',
+      jwtToken: jwt,
+      userDetails: {
+        username: newUser.name,
+        email: newUser.email,
+      },
+    })
+  } catch (err) {
+    res.status(500)
+    res.send({
+      message: 'Something went wrong',
+      err,
+    })
   }
 })
 
