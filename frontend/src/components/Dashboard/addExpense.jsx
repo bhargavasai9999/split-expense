@@ -1,12 +1,14 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, InputGroup, FormControl, Badge } from 'react-bootstrap';
-import './expense.css'; 
+import './expense.css';
+
+
 const friendsList = ["Parshu", "partheev", "bargav","poori","yash","kaif"];
 const groupsList = ["Goa Trip","pondi trip","hstl boys"];
-
-export const CreatePopup = ({ show, onClose }) => {
+export const CreatePopup = ({ show, onClose,friends,groups }) => {
     const [formData, setFormData] = useState({
+        title:"",
         description: '',
         amount: '',
         selectedFriends: [],
@@ -14,6 +16,8 @@ export const CreatePopup = ({ show, onClose }) => {
         friendSearchQuery: '',
         groupSearchQuery: '',
     });
+
+
 
     const handleFriendCheckboxChange = (friend) => {
         setFormData((prevData) => ({
@@ -65,6 +69,7 @@ export const CreatePopup = ({ show, onClose }) => {
         });
         onClose();
     };
+   
 
     return (
         <Modal show={show} onHide={onClose}>
@@ -73,6 +78,15 @@ export const CreatePopup = ({ show, onClose }) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
+                <Form.Group controlId='title'>
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control
+                            type='text'
+                            placeholder='Enter expense title'
+                            value={formData.title}
+                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        />
+                    </Form.Group>
                     <Form.Group controlId='description'>
                         <Form.Label>Description</Form.Label>
                         <Form.Control

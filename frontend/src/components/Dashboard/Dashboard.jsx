@@ -1,15 +1,45 @@
-import { React,useState } from 'react';
+import { React,useEffect,useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { FaHandshake, FaRegHandshake } from 'react-icons/fa'; 
 import './Dashboard.css';
 import { CreatePopup } from './addExpense';
 import Expense from '../Expenses/Expense';
 import { IoMdAdd } from "react-icons/io";
+import config from '../../apis/config';
+import api from '../../apis/axiosConfig';
 
 const Dashboard = () => {
     const [showModal, setShowModal] = useState(false);
-    const openModal = () => setShowModal(true);
+    const [friendlist,setfriendlist]=useState(null);
+    const [grouplist,setgrouplist]=useState(null);
+    const openModal = () => {
+        setShowModal(true);
+        fetch_friends();
+        fetch_groups();
+    };
     const closeModal = () => setShowModal(false);
+    const fetch_friends=async ()=>{
+        //fetching friends list
+     await api.get("/friends",config).then((res)=>{
+        setfriendlist(res.data);
+        console.log(friendlist);
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+    }
+
+    const fetch_groups=async ()=>{
+        //fetching group details
+        await api.get("/group",config).then((res)=>{
+        setgrouplist(res.data);
+        console.log(grouplist);
+        }).catch((err)=>{
+            console.log(err);
+})
+    }
+
+
     return (
         <>
         <div className="cont">
@@ -36,10 +66,11 @@ const Dashboard = () => {
                 </div>
             </div>
         </div>
-        <CreatePopup show={showModal} onClose={closeModal}/>
+        <CreatePopup show={showModal} onClose={closeModal} friends={friendlist} groups={grouplist} />
         <Expense/>
         </>
     );
+    
 };
 
 export default Dashboard;

@@ -49,6 +49,7 @@ const [data,setdata]=useState([]);
 const getAllgroupdetails=()=>{
     api.get("/group",config).then(res=>{
         setdata(res.data);
+        console.log(res.data);
     })
 }
 

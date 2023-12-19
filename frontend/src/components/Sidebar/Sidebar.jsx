@@ -51,7 +51,7 @@ const Sidebar = ({onLogout, showSidebar, setShowSidebar, selectedNavItem, setSel
       </div>
       <div className="user" onClick={openModal}>
         <img src={pic} alt="User" />
-        <h5>Hello,{username}</h5>
+        <h5>Hello,&nbsp;{username}</h5>
       </div>
       {showmodal == true && <ProfilePopup show={showmodal} close={closemodal} data={user} />}
       <ul className="nav-items ">
