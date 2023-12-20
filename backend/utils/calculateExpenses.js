@@ -21,7 +21,6 @@ Function: splitExpensesToUsers()
             amount: 34
         },
     ]
-
 */
 export const splitExpensesToUsers = (userIds, totalAmount, currentUserId) => {
   const totalUsers = userIds.length + 1 // including current user
