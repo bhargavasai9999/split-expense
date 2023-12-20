@@ -71,7 +71,7 @@ const Expense = ({owe_details,update}) => {
                     </div>
                 </div>)
 
-                )):<p className='fw-bold text-center m-0'>No pending settlements</p>}
+                )):<h5 className='fw-bold text-center m-0'>No pending settlements</h5>}
             </div>
             </div>
             <div className="left-section">
@@ -107,7 +107,7 @@ const Expense = ({owe_details,update}) => {
                             </div>
                         )}
                     </div>
-                )):<h4 className='mt-4 text-center '>No Activity</h4>}
+                )):<h5 className='mt-4 text-center '>No Activity</h5>}
             </div>
             </div>
         </div>
