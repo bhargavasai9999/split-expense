@@ -1,5 +1,5 @@
-const token=localStorage.getItem('jwtToken');
-const config = {
+let token=localStorage.getItem('jwtToken');
+let config = {
   headers: {
     authorization: `Bearer ${token}`,
   },

@@ -10,7 +10,8 @@ const [data,setdata]=useState([]);
 const get_activity=async ()=>{
   await api.get("/activity",config).then(res=>{
     setdata(res.data);
-    console.log(data)
+
+    console.log(res.data)
   })
   .catch(err=>{
     console.log(err);
@@ -69,7 +70,7 @@ useEffect(()=>{
       </div>
       <div className="d-flex flex flex-wrap col-12 ">     { 
         data.length>0 ? data.map((transaction)=>(
-          <ActivityItem amount={transaction.amount} time={transaction.amount} sender={transaction.friendName}  type={transaction.description} />
+          <ActivityItem amount={transaction.amount} time={transaction.updatedAt} sender={transaction.friendName}  type={transaction.description} />
         )
           
         )

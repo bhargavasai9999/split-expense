@@ -7,7 +7,8 @@ import { ToastProvider } from 'react-toast-notifications';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <React.StrictMode>
-      <ToastProvider>
+      <ToastProvider autoDismiss
+    autoDismissTimeout={4000}>
         <App />
       </ToastProvider>
     </React.StrictMode>

@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, InputGroup, FormControl, Badge } from 'react-bootstrap';
 import './expense.css';
-
-
-const friendsList = ["Parshu", "partheev", "bargav","poori","yash","kaif"];
+import { add_Expense } from '../../controllers/dashboard.controller';
+import {  useToasts } from 'react-toast-notifications';
+import api from '../../apis/axiosConfig';
+import config from '../../apis/config';
 const groupsList = ["Goa Trip","pondi trip","hstl boys"];
 export const CreatePopup = ({ show, onClose,friends,groups }) => {
     const [formData, setFormData] = useState({
@@ -16,6 +17,9 @@ export const CreatePopup = ({ show, onClose,friends,groups }) => {
         friendSearchQuery: '',
         groupSearchQuery: '',
     });
+    const friendsList = friends;
+
+    const { addToast } = useToasts();
 
 
 
@@ -47,8 +51,10 @@ export const CreatePopup = ({ show, onClose,friends,groups }) => {
 
     const filteredFriends = friendsList.filter(
         (friend) =>
-            formData.friendSearchQuery &&
-            friend.toLowerCase().includes(formData.friendSearchQuery.toLowerCase())
+            formData?.friendSearchQuery.length > 0 ?
+            friend?.name.toLowerCase().includes(formData.friendSearchQuery.toLowerCase()):
+            friend?.name.includes(friend.name)
+
     );
 
     const filteredGroups = groupsList.filter(
@@ -58,8 +64,19 @@ export const CreatePopup = ({ show, onClose,friends,groups }) => {
     );
 
     const handleFormSubmit = () => {
-        console.log('Form submitted with data:', formData);
+        if( formData.amount>0 && formData.selectedFriends?.length >0 && formData.title.length>0 && formData.description.length>0){
+            
+             api.post("/splitExpense",{title:formData.title,description:formData.description,amount:formData.amount,friendIds:formData.selectedFriends},config).then((res)=>{
+                 addToast("splitted successfully",{appearance:"success"})
+            }).catch((err)=>{
+                addToast("Something went wrong",{appearance:'error'})
+        }) 
+        }
+        else{
+            addToast("Enter valid details", { appearance: 'warning' });
+        }
         setFormData({
+            title:"",
             description: '',
             amount: '',
             selectedFriends: [],
@@ -74,7 +91,7 @@ export const CreatePopup = ({ show, onClose,friends,groups }) => {
     return (
         <Modal show={show} onHide={onClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Add Expense</Modal.Title>
+                <Modal.Title >Add Expense</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
@@ -85,7 +102,8 @@ export const CreatePopup = ({ show, onClose,friends,groups }) => {
                             placeholder='Enter expense title'
                             value={formData.title}
                             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                        />
+                        
+                        required/>
                     </Form.Group>
                     <Form.Group controlId='description'>
                         <Form.Label>Description</Form.Label>
@@ -99,31 +117,35 @@ export const CreatePopup = ({ show, onClose,friends,groups }) => {
                     <Form.Group controlId='amount'>
                         <Form.Label>Amount</Form.Label>
                         <Form.Control
-                            type='text'
+                            type='number'
                             placeholder='Enter amount'
                             value={formData.amount}
                             onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                            min="1"
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId='selectFriends'>
                         <Form.Label>Select Friends</Form.Label>
-                        <InputGroup className='mb-3'>
+                        <InputGroup className='mb-0'>
                             <FormControl
-                                placeholder='Search friends...'
+                                placeholder='Search friend...'
                                 value={formData.friendSearchQuery}
                                 onChange={handleFriendSearchQueryChange}
+                                className='bold'
+                                required
                             />
                         </InputGroup>
-                        {formData.friendSearchQuery && (
+                        { (
                             <div className='checklist-container'>
-                                {filteredFriends.map((friend, index) => (
+                                {filteredFriends.map((friend) => (
                                     <Form.Check
-                                        key={index}
+                                        key={friend.friendId}
                                         type='checkbox'
-                                        id={`friend-checkbox-${index}`}
-                                        label={friend}
-                                        checked={formData.selectedFriends.includes(friend)}
-                                        onChange={() => handleFriendCheckboxChange(friend)}
+                                        id={`friend-checkbox-${friend.friendId}`}
+                                        label={friend.name}
+                                        checked={formData.selectedFriends.includes(friend.friendId)}
+                                        onChange={() => handleFriendCheckboxChange(friend.friendId)}
                                         className='m-2'
                                     />
                                 ))}
@@ -132,9 +154,9 @@ export const CreatePopup = ({ show, onClose,friends,groups }) => {
                         {formData.selectedFriends.length > 0 && (
                             <div>
                                 <Form.Label>Selected Friends:</Form.Label>
-                                <div>
+                                <div className='overflow-auto' style={{maxHeight:"80px"}}>
                                     {formData.selectedFriends.map((friend) => (
-                                        <Badge key={friend} pill variant='info' className='mr-2'>
+                                        <Badge key={friend} pill variant='info' className='mx-1'>
                                             {friend}
                                         </Badge>
                                     ))}
@@ -142,7 +164,7 @@ export const CreatePopup = ({ show, onClose,friends,groups }) => {
                             </div>
                         )}
                     </Form.Group>
-                    <Form.Group controlId='selectGroups'>
+                    {/* <Form.Group controlId='selectGroups'>
                         <Form.Label>Select Groups</Form.Label>
                         <InputGroup className='mb-3'>
                             <FormControl
@@ -178,7 +200,7 @@ export const CreatePopup = ({ show, onClose,friends,groups }) => {
                                 </div>
                             </div>
                         )}
-                    </Form.Group>
+                    </Form.Group> */}
                 </Form>
             </Modal.Body>
             <Modal.Footer>
