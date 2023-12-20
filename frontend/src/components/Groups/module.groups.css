@@ -11,11 +11,11 @@
     transition: 0.2s ease-in-out;
 cursor: pointer;
 }
-.groupitem-main-div:hover{
+/* .groupitem-main-div:hover{
     transform: scale(0.95);
     transition: 0.2s ease-in-out;
    background-color: rgb(243, 243, 243);
-}
+} */
 .group-item-image{
     height:60px;
     width:60px;
@@ -40,9 +40,7 @@ filter: saturate(150%);
          border-radius:10px;
     margin:10px ;
     backdrop-filter: blur(10px);
-    transform: scale(1);
-    transition: 0.2s ease-in-out;
-    cursor: pointer;
+   
 
 }
 .groupcard-create-div:hover{

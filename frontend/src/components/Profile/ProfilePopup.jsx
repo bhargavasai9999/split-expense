@@ -8,22 +8,19 @@ import { FaEye } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
 
-export const ProfilePopup = ({show,close}) => {
+export const ProfilePopup = ({show,close,data}) => {
+  console.log(data)
   const [showpopup,setpopup]=useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const userProfile={
-    name:"bhaargava sai",
-    email:"sai@h.com",
-    password:"bhargava"
-  }
+
   const [formData, setFormData] = useState({
-    name: userProfile.name,
-    email: userProfile.email,
-    password: userProfile.password,
+    name: data.username,
+    email: data.email,
+    password: data.password,
   });
 useEffect(()=>{
   setpopup(true);
-})
+},[])
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -67,7 +64,7 @@ useEffect(()=>{
         <BsPersonCircle  size={80} className='shadow-sm bg-none br-10 profile-img-popup' />
         </div>
           <Form.Group controlId="formName ">
-
+<h4 className='text-center m-0'>Profile Photo</h4>
             <Form.Label className='d-inline fw-bold pt-1'>Name</Form.Label>
             {isEditing ? (
               <Form.Control

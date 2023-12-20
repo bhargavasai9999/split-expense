@@ -131,6 +131,7 @@ router.post('/settle', authorizeUser, async (req, res) => {
   }
 })
 
+
 router.get('/activity', authorizeUser, async (req, res) => {
   try {
     const activity = await Activity.findAll({ where: { userId: req.userId } })

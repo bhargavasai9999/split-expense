@@ -1,11 +1,68 @@
 import { ActivityItem } from "./ActivityItem"
 import { TbMoodEmptyFilled } from "react-icons/tb";
-
 import { FaHistory } from "react-icons/fa";
-
+import { useEffect, useState } from "react";
+import api from '../../apis/axiosConfig';
+import config from '../../apis/config'
 export const ActivityCard = () => {
+const [data,setdata]=useState([]);
 
+const get_activity=async ()=>{
+  await api.get("/activity",config).then(res=>{
+    setdata(res.data);
+
+    console.log(res.data)
+  })
+  .catch(err=>{
+    console.log(err);
+  })
+
+}
+useEffect(()=>{
+  get_activity();
+},[])
   
+// const data=[{
+//   type:"paid",
+//   friendName:"parshuram",
+//   comment:"biriyani",
+//   amount:100,
+//   time:"20 August",
+//   status:'successful'
+// },{
+//   type:"received",
+//   friendName:"parshuram",
+//   comment:"biriyani",
+//   amount:100,
+//   time:"21 August",
+//   status:"successful"
+// },{
+//   type:"received",
+//   friendName:"parshuram",
+//   comment:"biriyani",
+//   amount:300,
+//   time:"21 August",
+//   status:"successful"
+// }
+// ,{
+//   type:"paid",
+//   friendName:"parshuram",
+//   comment:"waiter",
+//   amount:500,
+//   time:"21 August",
+//   status:"successful"
+// }
+
+// ,{
+//   type:"paid",
+//   friendName:"parshuram",
+//   comment:"grocery",
+//   amount:400,
+//   time:"21 August",
+//   status:"successful"
+// }
+
+// ]
   return (
     <div className="container-fluid col-12 d-flex flex-column flex-wrap justify-content-between activitycard-body-div">
       <div className="container"> 
@@ -13,7 +70,7 @@ export const ActivityCard = () => {
       </div>
       <div className="d-flex flex flex-wrap col-12 ">     { 
         data.length>0 ? data.map((transaction)=>(
-          <ActivityItem comment={transaction.comment} amount={transaction.amount} time={transaction.time} sender={transaction.sender} status={transaction.status} type={transaction.type} />
+          <ActivityItem amount={transaction.amount} time={transaction.updatedAt} sender={transaction.friendName}  type={transaction.description} />
         )
           
         )
@@ -26,44 +83,3 @@ export const ActivityCard = () => {
   )
 }
 
-const data=[{
-  type:"paid",
-  sender:"parshuram",
-  comment:"biriyani",
-  amount:5000,
-  time:"20 August",
-  status:'pending'
-},{
-  type:"received",
-  sender:"parshuram",
-  comment:"biriyani",
-  amount:500,
-  time:"21 August",
-  status:"successful"
-},{
-  type:"received",
-  sender:"parshuram",
-  comment:"biriyani",
-  amount:500,
-  time:"21 August",
-  status:"successful"
-}
-,{
-  type:"received",
-  sender:"parshuram",
-  comment:"biriyani",
-  amount:500,
-  time:"21 August",
-  status:"successful"
-}
-
-,{
-  type:"received",
-  sender:"parshuram",
-  comment:"biriyani",
-  amount:500,
-  time:"21 August",
-  status:"successful"
-}
-
-]

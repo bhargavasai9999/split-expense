@@ -8,6 +8,7 @@ import api from '../../apis/axiosConfig';
 import {  useToasts } from 'react-toast-notifications';
 import 'bootstrap/dist/css/bootstrap.css';
 import './module.friendcard.css';
+import config from '../../apis/config';
 
 export const FriendCard = () => {
   const { addToast } = useToasts();
@@ -38,15 +39,11 @@ export const FriendCard = () => {
     setShowAddFriendPopup(false);
     setNewFriendEmail('');
   };
-  const token=localStorage.getItem('jwtToken');
-  const config = {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  };
+ 
   const handleSaveFriend = () => {
     api.post('/addfriend',{email:newFriendEmail},config).then(res=>{
       addToast(res.data.message, { appearance: 'success' });
+      get_friends();
     }
     ).catch((err) => {
       addToast("email not found", { appearance: 'error' });
@@ -55,15 +52,17 @@ export const FriendCard = () => {
     setShowAddFriendPopup(false);
     setNewFriendEmail('');
   };
+  const get_friends=()=>{
+    api.get("/friends",config).then(res=>{
+      setFriends(res.data)
+  
+    }).catch((err)=>{
+      addToast(err.res.data.message || "something went wrong",{appearance:"error"})
+    })
+  }
 useEffect(()=>{
-  api.get("/friends",config).then(res=>{
-    setFriends(res.data)
-    console.log(friends)
-
-  }).catch((err)=>{
-    addToast(err.res.data.message || "something went wrong",{appearance:"error"})
-  })
-},[showAddFriendPopup])
+  get_friends();
+},[])
   return (
     <div className=" cont text-center flex justify-content-center col-10">
       {/* <div className="d-flex justify-content-around mt-1 ">
@@ -75,7 +74,7 @@ useEffect(()=>{
       <div className="dashboard-title">
         <h2>Friends</h2>
         
-        <button className="add-expense-button" onClick={handleAddFriend}>Add Friend</button>
+        <button className="add-expense-button shadow" onClick={handleAddFriend}>Add Friend</button>
       </div>
       <div className="d-flex justify-content-center m-4 col-12">
         <table id="friends shadow">

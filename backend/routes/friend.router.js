@@ -32,7 +32,6 @@ router.get('/friends', authorizeUser, async (req, res) => {
     const friends = await user.getFriends({
       attributes: ['name', 'email'],
     })
-    console.log('2')
     res.status(200).send(
       friends.map((friend) => {
         return {

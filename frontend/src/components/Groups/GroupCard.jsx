@@ -6,7 +6,8 @@ import { GroupItem } from './GroupItem';
 import { MdGroups3 } from "react-icons/md";
 import api from '../../apis/axiosConfig';
 import {  useToasts } from 'react-toast-notifications';
-
+import 'bootstrap/dist/css/bootstrap.css';
+import config from '../../apis/config';
 export const GroupCard = () => {
     const [showModal, setShowModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
@@ -17,58 +18,47 @@ export const GroupCard = () => {
 
     const openModal = () => {
         setShowModal(true);
-        setEditedGroupIndex(null);
         getfriendlist();
     };
 
     const closeModal = () => {
         setShowModal(false);
-        setEditedGroupIndex(null);
     };
 
-    const openEditModal = (index,groupdata) => {
+    const openEditModal = (groupdata) => {
         setEditModal(true);
-        setEditedGroupIndex(index);
+        setEditedGroupIndex(groupdata.id);
         settempdata(groupdata);
+        getfriendlist();
     };
 
     const closeEditModal = () => {
         setEditModal(false);
         setEditedGroupIndex(null);
     };
-    const token=localStorage.getItem('jwtToken');
-    const config = {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    };
-const getfriendlist=()=>{
-    api.get("/friends",config).then(res=>{
-        addToast("friends fetched successfully", { appearance: 'success' });
-        setfriendlist(res.data)
-        console.log(friendlist);
 
-        
+const getfriendlist= async ()=>{
+    await api.get("/friends",config).then(res=>{
+        setfriendlist(res.data);
     })
     .catch(err=>{
             addToast("No friends found", { appearance: 'danger' });
-        addToast("something went wrong", { appearance: 'danger' });
-
-
     })
 }
 const [data,setdata]=useState([]);
 const getAllgroupdetails=()=>{
     api.get("/group",config).then(res=>{
         setdata(res.data);
-        console.log(data)
+        console.log(res.data);
     })
 }
 
+const re_render=()=>{
+    getAllgroupdetails();
+}
 useEffect(()=>{
     getAllgroupdetails();
-},[]
-)
+},[])
     return (
         <div>
             <h2 className='text-start px-4'><MdGroups3 size={40} className='mb-2'/>&ensp;Groups</h2>
@@ -84,14 +74,14 @@ useEffect(()=>{
                 </div>
                 {data.length > 0 &&
                     data.map((groupdata) => (
-                        <div key={groupdata.id} onClick={() => {openEditModal(index,groupdata)}}>
-                            <GroupItem name={groupdata.name} />
+                        <div key={groupdata.id} onClick={() => {openEditModal(groupdata)}}>
+                            <GroupItem name={groupdata.name} id={groupdata.id} />
                         </div>
                     ))}
             </div>
-            <CreatePopup show={showModal} onClose={closeModal} list={friendlist} />
+            <CreatePopup show={showModal} onClose={closeModal} list={friendlist} update={re_render} />
             {editedGroupIndex!=null && (
-                <EditPopup show={editModal} onClose={closeEditModal} data={tempdata} list={[friendlist]}  />
+                <EditPopup show={editModal} onClose={closeEditModal} data={tempdata} friends={friendlist} update={re_render} />
             )}
         </div>
     );

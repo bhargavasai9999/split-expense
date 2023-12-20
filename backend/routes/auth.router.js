@@ -1,5 +1,4 @@
 import express from 'express'
-import { initializeApp } from 'firebase-admin/app'
 import { User } from '../models/User.js'
 import { signJwtToken } from '../utils/jwt.js'
 import { getUserGoogleAuth } from '../utils/firebase.js'
@@ -10,14 +9,14 @@ router.post('/login', async (req, res) => {
   const foundUser = await User.findOne({ where: { email: req.body.email } })
   console.log(foundUser)
   if (!foundUser) {
-    res
-      .status(400)
-      .send({ message: 'Email is not registered with us, please sign up' })
+    res.status(400).send({ message: 'Email is not registered with us, please sign up' })
     return
   }
   if (foundUser.password === req.body.password) {
     const userId = foundUser.id
+    console.log('===id', foundUser.id)
     const jwt = signJwtToken(userId)
+    console.log(jwt)
     res.status(200).send({
       message: 'User successfully authenticated',
       jwtToken: jwt,
@@ -25,6 +24,8 @@ router.post('/login', async (req, res) => {
         userId : foundUser.id,
         username: foundUser.name,
         email: foundUser.email,
+        password:foundUser.password,
+        isProfileCompleted: foundUser.isProfileCompleted,
       },
     })
   } else {

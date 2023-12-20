@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import api from '../../apis/axiosConfig';
 
-export const CreatePopup = ({ show, onClose,list }) => {
+export const CreatePopup = ({ show, onClose,list,update}) => {
     const { addToast } = useToasts();
 
     const [formData, setFormData] = useState({
@@ -16,7 +16,6 @@ export const CreatePopup = ({ show, onClose,list }) => {
         selectedFriends: [],
     });
     const friendsList =list;
-    console.log(list)
     const handleCheckboxChange = (friend) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -32,13 +31,20 @@ export const CreatePopup = ({ show, onClose,list }) => {
       },
     };
     const handleFormSubmit = () => {
-        console.log('Form submitted with data:', formData);
+        if (!formData.groupName.trim()) {
+            addToast("Please enter a group name", { appearance: 'warning' });
+            return;
+        }
+
+        if (formData.selectedFriends.length === 0) {
+            addToast("Please select at least one friend", { appearance: 'warning' });
+            return;
+        }
         api.post("/group",{name:formData.groupName,userIds:formData.selectedFriends},config).then(res=>{
-            // addToast(res.data.message, { appearance: 'success' });
-            console.log(res.data)
-    
+            addToast("group created successfully", { appearance: 'success' });
+            update();
         }).catch(err=>{
-            // addToast("something went wrong", { appearance: 'danger' });
+            addToast("something went wrong", { appearance: 'danger' });
     
         })
         setFormData({
@@ -51,7 +57,7 @@ export const CreatePopup = ({ show, onClose,list }) => {
    
 
     return (
-        <Modal show={show} onHide={onClose}>
+        <Modal show={show} onHide={()=>onClose()}>
             <Modal.Header closeButton>
                 <Modal.Title><IoCreate className='mb-2' size={25} /> Create Group</Modal.Title>
             </Modal.Header>
@@ -66,6 +72,7 @@ export const CreatePopup = ({ show, onClose,list }) => {
                             value={formData.groupName}
                             onChange={(e) => setFormData({ ...formData, groupName: e.target.value })}
                             className='shadow-sm w-100'
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId='groupDescription'>
@@ -93,6 +100,7 @@ export const CreatePopup = ({ show, onClose,list }) => {
                                     checked={formData.selectedFriends.includes(friend.friendId)}
                                     onChange={() => handleCheckboxChange(friend.friendId)}
                                     className='m-2'
+                                    required
                                 />
                             ))}
                         </div>
@@ -100,7 +108,7 @@ export const CreatePopup = ({ show, onClose,list }) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button className='m-auto popup-button fw-bold shadow' onClick={handleFormSubmit}>
+                <Button className='m-auto popup-button fw-bold shadow' onClick={()=>{handleFormSubmit();update();}}>
                 <IoCreate className='pb-1' size={25} />&ensp; Create
                 </Button>
             </Modal.Footer>

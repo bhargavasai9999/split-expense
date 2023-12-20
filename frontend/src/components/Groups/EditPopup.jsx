@@ -1,47 +1,71 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './module.groups.css';
-import { GrUpdate } from "react-icons/gr";
-
-import React, { useState } from 'react';
+import { GrUpdate, GrTrash } from "react-icons/gr"; // Assuming you have a delete icon
+import config from '../../apis/config';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import {  useToasts } from 'react-toast-notifications';
+import api from '../../apis/axiosConfig';
 
-
-export const EditPopup = ({ show, onClose,data,list }) => {
-    const friendsList =list;
+export const EditPopup = ({ show, onClose, data, friends, onDelete,update }) => {
+    console.log(data);
+    const { addToast } = useToasts();
     const [formData, setFormData] = useState({
-        groupName: data.groupName,
+        groupName: data.name,
         groupDescription: data.groupDescription,
-        selectedFriends: data.selectedFriend,
+        selectedFriends: friends.map(friend => friend.friendId),
+        groupid:data.id
     });
-   
 
-    const handleCheckboxChange = (friend) => {
+    const handleCheckboxChange = (friendId) => {
         setFormData((prevData) => ({
             ...prevData,
-            selectedFriends: prevData.selectedFriends.includes(friend)
-                ? prevData.selectedFriends.filter((selectedFriend) => selectedFriend !== friend)
-                : [...prevData.selectedFriends, friend],
+            selectedFriends: prevData.selectedFriends.includes(friendId)
+                ? prevData.selectedFriends.filter((selectedFriend) => selectedFriend !== friendId)
+                : [...prevData.selectedFriends, friendId],
         }));
     };
 
-    const handleFormSubmit = () => {
+    const handleFormSubmit =  () => {
         console.log('Form submitted with edited data:', formData);
+        api.put("/group",{name:formData.groupName,userIds:formData.selectedFriends,groupId:formData.groupid},config)
+        .then(res=>{
+            //this is wrong toast "this is update request"
+             addToast("group deleted successfully", { appearance: 'success' });
+        })
+        .catch(err=>{
+            // addToast("No friends found", { appearance: 'danger' });
+        })
         setFormData({
             groupName: '',
             groupDescription: '',
             selectedFriends: [],
+            groupid:null
         });
         onClose();
     };
 
+    const handleDelete =async () => {
+        
+        await api.delete("/group",{groupId:groupid},config).then(res=>{
+            addToast("group deleted successfully",{appearance:'success'})
+        }).catch(err=>{
+            console.log(err);
+            // addToast("something went wrong",{appearance:"danger"})
+        })
+        onClose();
+    };
+
+   
+
     return (
-        <Modal show={show} onHide={onClose}>
+        <Modal show={show} onHide={onClose} onClick={()=>update()}>
             <Modal.Header closeButton>
                 <Modal.Title><GrUpdate size={20} className='pb-1' />  Edit Group details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <h6 className='text-center'>view and edit your details*</h6>
+                    <h6 className='text-center'>View and edit your details*</h6>
                     <Form.Group controlId='groupName'>
                         <Form.Label className='popup-label'>Group Name</Form.Label>
                         <Form.Control
@@ -65,26 +89,34 @@ export const EditPopup = ({ show, onClose,data,list }) => {
                     </Form.Group>
                     <Form.Group controlId='selectFriends'>
                         <Form.Label className='popup-label pt-2'>Select Friends</Form.Label>
-                        <div className='overflow-auto ' style={{height:"130px"}}>
-                            {friendsList.map((friend, index) => (
-                                <Form.Check
-                                    key={index}
-                                    type='checkbox'
-                                    id={`friend-checkbox-${index}`}
-                                    label={friend}
-                                    checked={formData.selectedFriends.includes(friend)}
-                                    onChange={() => handleCheckboxChange(friend)}
-                                    className='m-2'
-                                />
-                            ))}
+                        <div className='overflow-auto' style={{ height: "130px" }}>
+                            {friends && friends.length > 0 ? (
+                                friends.map((friend) => (
+                                    <Form.Check
+                                        key={friend.friendId}
+                                        type='checkbox'
+                                        id={`friend-checkbox-${friend.friendId}`}
+                                        label={friend.name}
+                                        checked={formData.selectedFriends.includes(friend.friendId)}
+                                        onChange={() => handleCheckboxChange(friend.friendId)}
+                                        className='m-2'
+                                    />
+                                ))
+                            ) : (
+                                <strong>No friends found</strong>
+                            )}
                         </div>
                     </Form.Group>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button className='m-auto popup-button fw-bold shadow ' onClick={handleFormSubmit}>
-                <GrUpdate size={20} className='pb-1' /> &ensp;Update
+                    <GrUpdate size={20} className='pb-1' /> &ensp;Update
                 </Button>
+                <Button className='m-auto popup-button fw-bold shadow ' onClick={handleDelete}>
+                    <GrTrash size={20} className='pb-1' /> &ensp;Delete
+                </Button>
+                
             </Modal.Footer>
         </Modal>
     );
