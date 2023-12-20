@@ -48,7 +48,7 @@ const Dashboard = () => {
 
 useEffect(()=>{
     fetch_owe_details();
-},[config])
+},[])
     return (
         <>
         <div className="cont">
