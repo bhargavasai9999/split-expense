@@ -7,34 +7,32 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import {  useToasts } from 'react-toast-notifications';
 import api from '../../apis/axiosConfig';
 
-export const EditPopup = ({ show, onClose, data, friends, onDelete,update }) => {
-    console.log(data);
+export const EditPopup = ({ show, onClose,update,groupdetail,friends,group_data }) => {
     const { addToast } = useToasts();
+   
     const [formData, setFormData] = useState({
-        groupName: data.name,
-        groupDescription: data.groupDescription,
-        selectedFriends: friends.map(friend => friend.friendId),
-        groupid:data.id
+        groupName: groupdetail.name,
+        groupDescription: groupdetail.groupDescription,
+        selectedFriends: group_data.map(friend => friend.id),
+        groupid:groupdetail.id
     });
-
     const handleCheckboxChange = (friendId) => {
         setFormData((prevData) => ({
             ...prevData,
-            selectedFriends: prevData.selectedFriends.includes(friendId)
+            selectedFriends: prevData.selectedFriends?.includes(friendId)
                 ? prevData.selectedFriends.filter((selectedFriend) => selectedFriend !== friendId)
                 : [...prevData.selectedFriends, friendId],
         }));
     };
 
-    const handleFormSubmit =  () => {
+    const handleFormSubmit =async  () => {
         console.log('Form submitted with edited data:', formData);
-        api.put("/group",{name:formData.groupName,userIds:formData.selectedFriends,groupId:formData.groupid},config)
+        await api.put("/group",{name:formData.groupName,userIds:formData.selectedFriends,groupId:formData.groupid},config)
         .then(res=>{
-            //this is wrong toast "this is update request"
-             addToast("group deleted successfully", { appearance: 'success' });
+             addToast("group Updated successfully", { appearance: 'success' });
         })
         .catch(err=>{
-            // addToast("No friends found", { appearance: 'danger' });
+             addToast("No friends found", { appearance: 'warning' });
         })
         setFormData({
             groupName: '',
@@ -47,16 +45,17 @@ export const EditPopup = ({ show, onClose, data, friends, onDelete,update }) => 
 
     const handleDelete =async () => {
         
-        await api.delete("/group",{groupId:groupid},config).then(res=>{
-            addToast("group deleted successfully",{appearance:'success'})
+        await api.delete("/group",{groupId:formData.groupid},config).then(res=>{
+            addToast("group deleted successfully",{appearance:'info'})
         }).catch(err=>{
             console.log(err);
-            // addToast("something went wrong",{appearance:"danger"})
+             addToast("something went wrong",{appearance:"error"})
         })
         onClose();
     };
 
    
+
 
     return (
         <Modal show={show} onHide={onClose} onClick={()=>update()}>
@@ -97,7 +96,7 @@ export const EditPopup = ({ show, onClose, data, friends, onDelete,update }) => 
                                         type='checkbox'
                                         id={`friend-checkbox-${friend.friendId}`}
                                         label={friend.name}
-                                        checked={formData.selectedFriends.includes(friend.friendId)}
+                                        checked={formData.selectedFriends?.includes(friend.friendId)}
                                         onChange={() => handleCheckboxChange(friend.friendId)}
                                         className='m-2'
                                     />

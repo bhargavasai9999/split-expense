@@ -11,11 +11,19 @@ import config from '../../apis/config';
 export const GroupCard = () => {
     const [showModal, setShowModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
-    const [editedGroupIndex, setEditedGroupIndex] = useState(null);
-    const [tempdata,settempdata]=useState(null);
-    const [friendlist,setfriendlist]=useState([])
+    const [grpdetails,setgrpdetails]=useState(null);
+    const [editgroupindex,setEditedgroupindex]=useState(null)
     const { addToast } = useToasts();
-
+    const [friendlist,setfriendlist]=useState([])
+    const getfriendlist= async ()=>{
+        await api.get("/friends",config).then(res=>{
+            setfriendlist(res.data);
+            console.log(res.data)
+        })
+        .catch(err=>{
+                addToast("No friends found", { appearance: 'danger' });
+        })
+    }
     const openModal = () => {
         setShowModal(true);
         getfriendlist();
@@ -26,30 +34,31 @@ export const GroupCard = () => {
     };
 
     const openEditModal = (groupdata) => {
-        setEditModal(true);
-        setEditedGroupIndex(groupdata.id);
-        settempdata(groupdata);
         getfriendlist();
+        get_groupdetail(groupdata.id)
+        setEditModal(true);
+        setEditedgroupindex(groupdata.id)
+        setgrpdetails(groupdata);
     };
 
     const closeEditModal = () => {
         setEditModal(false);
-        setEditedGroupIndex(null);
+        setEditedgroupindex(null)
     };
 
-const getfriendlist= async ()=>{
-    await api.get("/friends",config).then(res=>{
-        setfriendlist(res.data);
-    })
-    .catch(err=>{
-            addToast("No friends found", { appearance: 'danger' });
-    })
-}
+    const [group_data,setgroup_data]=useState([])
+    const get_groupdetail = (id) => {
+        api.get(`/group/${id}`, config).then((res) => {
+            setgroup_data(res.data);
+        }).catch((error) => {
+            console.error("Error fetching group details:", error);
+        });
+    };
+
 const [data,setdata]=useState([]);
 const getAllgroupdetails=()=>{
     api.get("/group",config).then(res=>{
         setdata(res.data);
-        console.log(res.data);
     })
 }
 
@@ -80,8 +89,8 @@ useEffect(()=>{
                     ))}
             </div>
             <CreatePopup show={showModal} onClose={closeModal} list={friendlist} update={re_render} />
-            {editedGroupIndex!=null && (
-                <EditPopup show={editModal} onClose={closeEditModal} data={tempdata} friends={friendlist} update={re_render} />
+            {editgroupindex!=null && (
+                <EditPopup show={editModal} onClose={closeEditModal} friends={friendlist} update={re_render} groupdetail={grpdetails} group_data={group_data} />
             )}
         </div>
     );

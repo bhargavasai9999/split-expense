@@ -1,7 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './module.groups.css';
-
+import api from '../../apis/axiosConfig';
 export const GroupItem = ({name}) => {
+
+
+
   return (
     
         <div className='groupitem-main-div d-flex flex-column justify-content-center text-center shadow p-3'>
