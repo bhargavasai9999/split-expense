@@ -55,4 +55,4 @@ Create .env file in backend-node dir and use your own environmental variable to 
 ![Screenshot (58)](https://github.com/bhargavasai9999/split-expense/assets/85823759/3a0e2e25-238b-4fa1-937d-96923de69871)
 
 
-##### Note: While visiting webpage server may be in sleep please for a while in your first visit
+##### **Note: While visiting webpage server may be in sleep please for a while in your first visit
