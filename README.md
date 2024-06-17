@@ -46,6 +46,10 @@ In the project directory, we have frontend-react and backend-node directory whic
 
 Create .env file in backend-node dir and use your own environmental variable to make application work.
 
+
+# Deployment link
+Open to view website https://split-expense-flipr.netlify.app/
+
 ## Screenshots
 
 ![Screenshot (54)](https://github.com/bhargavasai9999/split-expense/assets/85823759/338e166e-f95a-414c-99ca-3f5f69da5d87)
