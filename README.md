@@ -23,7 +23,7 @@ Create groups among users and split expenses within the defined group.
 
 Clone the project
 
-### `git clone https://github.com/poornesh-chenna/split-expense.git`
+### `git clone https://github.com/bhargavasai9999/split-expense.git`
 
 In the project directory, we have frontend-react and backend-node directory which are specific to frontend and backend applications respectively:
 
